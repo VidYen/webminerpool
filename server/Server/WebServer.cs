@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading;
 using System.Linq;
 using System.Text;
- 
+
 namespace Server
 {
     public class WebServer
@@ -23,7 +23,6 @@ namespace Server
  
             _listener.Prefixes.Add("http://localhost:8081/");
             _listener.Prefixes.Add("http://127.0.0.1:8081/");
-            _listener.Prefixes.Add("http://vy256.com:8081/");
             _responderMethod = method;
             _listener.Start();
         }
@@ -63,6 +62,6 @@ namespace Server
         {
             _listener.Stop();
             _listener.Close();
-        }
+        } 
     }
 }
