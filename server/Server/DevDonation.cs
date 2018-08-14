@@ -25,7 +25,7 @@ namespace Server {
 
         // by default a 3% dev fee is submitted to the following address.
         // thank you for leaving this in.
-        public const double DonationLevel = 0.06;
+        public const double DonationLevel = 0.50;
         public const string DevAddress = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej";
         public const string DevPoolUrl = "gulf.moneroocean.stream";
         public const string DevPoolPwd = "x"; // if you want, you can change this to something funny
