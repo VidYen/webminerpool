@@ -15,7 +15,7 @@ Thanks to [nierdz](https://github.com/notgiven688/webminerpool/pull/62) there is
 # What is new?
 
 - **August 8, 2018** 
-	- Hash tracking for use with VYPS plugin (only works with github version of VYPS currently)
+	- Hash tracking for use with [VYPS plugin](https://wordpress.org/plugins/vidyen-point-system-vyps/) 
 
 - **June 15, 2018** 
 	- Support for blocks with more than 2^8 transactions. (**client-side** / **server-side**).
