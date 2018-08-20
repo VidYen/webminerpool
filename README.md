@@ -152,6 +152,18 @@ server {
 }
 ```
 
+### In case server reboot
+
+```
+sudo systemctl start nginx
+```
+
+Or...
+
+```
+cd /etc/nginx
+sudo nginx -s reload
+```
 
 ### hash_cn
 
