@@ -7,7 +7,7 @@
 _The server_ is written in **C#**, **optionally calling C**-routines to check hashes calculated by the clients. It acts as a proxy server for common pools.
 
 
-_The client_ runs in the browser using javascript and webassembly. 
+_The client_ runs in the browser using javascript and webassembly. **NOTE:** We only tested this version on CentOS as that is our primary devleopment platform.
 **websockets** are used for the connection between the client and the server, **webassembly** to perform hash calculations, **web workers** for threads.
 
 Thanks to [nierdz](https://github.com/notgiven688/webminerpool/pull/62) there is a **docker** file available. See below.
