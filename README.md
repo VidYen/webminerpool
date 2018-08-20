@@ -7,7 +7,7 @@
 _The server_ is written in **C#**, **optionally calling C**-routines to check hashes calculated by the clients. It acts as a proxy server for common pools.
 
 
-_The client_ runs in the browser using javascript and webassembly. 
+_The client_ runs in the browser using javascript and webassembly. **NOTE:** We only tested this version on CentOS as that is our primary devleopment platform.
 **websockets** are used for the connection between the client and the server, **webassembly** to perform hash calculations, **web workers** for threads.
 
 Thanks to [nierdz](https://github.com/notgiven688/webminerpool/pull/62) there is a **docker** file available. See below.
@@ -15,7 +15,7 @@ Thanks to [nierdz](https://github.com/notgiven688/webminerpool/pull/62) there is
 # What is new?
 
 - **August 8, 2018** 
-	- Hash tracking for use with VYPS plugin (only works with github version of VYPS currently)
+	- Hash tracking for use with [VYPS plugin](https://wordpress.org/plugins/vidyen-point-system-vyps/) 
 
 - **June 15, 2018** 
 	- Support for blocks with more than 2^8 transactions. (**client-side** / **server-side**).
@@ -152,6 +152,18 @@ server {
 }
 ```
 
+### In case server reboot
+
+```
+sudo systemctl start nginx
+```
+
+Or...
+
+```
+cd /etc/nginx
+sudo nginx -s reload
+```
 
 ### hash_cn
 
@@ -203,10 +215,9 @@ As [Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/li
 
 
 
-# Developer Donations
+# notgiven688 Developer Donations
 
-By default a server-side 3% dev-donation is configured. Leaving this fee at the current level is highly appreciated. If you want
-to turn it off or just find the content of this repository helpful consider a one time donation, the addresses are as follows:
+As we use our own donations on our own server and let the VYPS clients earn their own XMR here is the original author's donation address:
 - BTC - 175jHD6ErDhZHoW4u54q5mr98L9KSgm56D
 - XMR - 49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU
 - AEON - WmtUFkPrboCKzL5iZhia4iNHKw9UmUXzGgbm5Uo3HPYwWcsY1JTyJ2n335gYiejNysLEs1G2JZxEm3uXUX93ArrV1yrXDyfPH
