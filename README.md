@@ -203,10 +203,9 @@ As [Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/li
 
 
 
-# Developer Donations
+# notgiven688 Developer Donations
 
-By default a server-side 3% dev-donation is configured. Leaving this fee at the current level is highly appreciated. If you want
-to turn it off or just find the content of this repository helpful consider a one time donation, the addresses are as follows:
+As we use our own donations on our own server and let the VYPS clients earn their own XMR here is the original author's donation address:
 - BTC - 175jHD6ErDhZHoW4u54q5mr98L9KSgm56D
 - XMR - 49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU
 - AEON - WmtUFkPrboCKzL5iZhia4iNHKw9UmUXzGgbm5Uo3HPYwWcsY1JTyJ2n335gYiejNysLEs1G2JZxEm3uXUX93ArrV1yrXDyfPH
