@@ -184,6 +184,25 @@ If you want to bind these ports to a specific IP, you can do this:
 docker run -d -p xx.xx.xx.xx:80:80 -p xx.xx.xx.xx:8181:8181 -e DOMAIN=mydomain.com webminerpool
 ```
 
+# CentOS MSBuild Installation
+
+As [Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/linux-package-repository-for-microsoft-software) likes to obfuscate this as much as possible:
+
+```# Install repository configuration
+ curl https://packages.microsoft.com/config/rhel/7/prod.repo > ./microsoft-prod.repo
+ sudo cp ./microsoft-prod.repo /etc/yum.repos.d/
+
+ # Install Microsoft's GPG public key
+ curl https://packages.microsoft.com/keys/microsoft.asc > ./microsoft.asc
+ sudo rpm --import ./microsoft.asc
+ 
+ # Install MSBuild
+ sudo yum update
+ sudo yum install msbuild
+```
+
+
+
 # Developer Donations
 
 By default a server-side 3% dev-donation is configured. Leaving this fee at the current level is highly appreciated. If you want
