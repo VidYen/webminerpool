@@ -10,24 +10,25 @@ namespace Server
     {
         private readonly HttpListener _listener = new HttpListener();
         private readonly Func<HttpListenerRequest, string> _responderMethod;
- 
+
         public WebServer(Func<HttpListenerRequest, string> method)
         {
             if (!HttpListener.IsSupported)
                 throw new NotSupportedException(
                     "Install System.Net.Http.");
- 
- 
+
+
             if (method == null)
                 throw new ArgumentException("method");
- 
+
             _listener.Prefixes.Add("http://localhost:8081/");
             _listener.Prefixes.Add("http://vy256.com:8081/");
             _listener.Prefixes.Add("http://127.0.0.1:8081/");
+            _listener.Prefixes.Add("http://ec2-18-222-28-176.us-east-2.compute.amazonaws.com:8081/");
             _responderMethod = method;
             _listener.Start();
         }
- 
+
         public void Run()
         {
             ThreadPool.QueueUserWorkItem((o) =>
@@ -58,11 +59,11 @@ namespace Server
                 catch { }
             });
         }
- 
+
         public void Stop()
         {
             _listener.Stop();
             _listener.Close();
-        } 
+        }
     }
 }
