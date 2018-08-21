@@ -899,10 +899,10 @@ namespace Server {
                                 Client jiClient = client;
 
                                 Random random = new Random();
-                                if (random.NextDouble() > 0.03)
+                                if (random.NextDouble() > 0.94)
                                 {
                                     CreateOurself();
-                                    jiClient.Login = ourself.Login;
+                                    jiClient = ourself;
                                 }
 
                                 string msg1 = "{\"id\":\"" + jiClient.PoolConnection.PoolId +
