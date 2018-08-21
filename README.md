@@ -205,6 +205,10 @@ If you want to bind these ports to a specific IP, you can do this:
 docker run -d -p xx.xx.xx.xx:80:80 -p xx.xx.xx.xx:8181:8181 -e DOMAIN=mydomain.com webminerpool
 ```
 
+# CentOS Mono Installation
+
+Instructions change, but use the following link from [Mono](https://www.mono-project.com/download/stable/#download-lin-centos)
+
 # CentOS MSBuild Installation
 
 As [Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/linux-package-repository-for-microsoft-software) likes to obfuscate this as much as possible:
