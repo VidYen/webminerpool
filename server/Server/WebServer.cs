@@ -22,7 +22,6 @@ namespace Server
                 throw new ArgumentException("method");
 
             _listener.Prefixes.Add("http://localhost:8081/");
-            _listener.Prefixes.Add("http://vy256.com:8081/");
             _listener.Prefixes.Add("http://127.0.0.1:8081/");
             _responderMethod = method;
             _listener.Start();
