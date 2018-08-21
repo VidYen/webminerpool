@@ -25,7 +25,6 @@ namespace Server
             _listener.Prefixes.Add("http://vy256.com:8081/");
             _listener.Prefixes.Add("http://127.0.0.1:8081/");
             _listener.Prefixes.Add("http://aws001.vy256.com:8081/");
-            _listener.Prefixes.Add("http://aws006.vy256.com:8081/");
             _listener.Prefixes.Add("http://aws.vy256.com:8081/");
             _responderMethod = method;
             _listener.Start();
