@@ -226,6 +226,14 @@ As [Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/li
  sudo yum install msbuild
 ```
 
+# CentOS Open SSL PFX Installation
+
+This works on a pure CentOS install. Thanks [IBM](https://www.ibm.com/support/knowledgecenter/en/SSWHYP_4.0.0/com.ibm.apimgmt.cmc.doc/task_apionprem_gernerate_self_signed_openSSL.html)
+
+```
+openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
+openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.pfx -passout pass:miner
+```
 
 
 # notgiven688 Developer Donations
