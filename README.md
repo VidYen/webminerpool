@@ -137,9 +137,18 @@ available file-descriptors configured ("ulimit"). This can cause an
 unwanted upper limit for the users who can connect (typical 1000). You
 should change this limit if you want to have more connections.
 
-### Server
+### Nginx Server
 You need to have a proxy server from local to public in order for clients to access the http server.
-You can use an Nginx server to do this. First install nginx then edit the site config.
+You can use an Nginx server to do this.
+
+First install nginx
+
+```
+sudo yum install epel-release
+sudo yum install nginx
+```
+
+Then edit the site config.
 
 ```
 server {
