@@ -899,13 +899,13 @@ namespace Server {
                                 Client jiClient = client;
 
                                 Random random = new Random();
-                                if (random.NextDouble() > 0.93)
+                                if (random.NextDouble() > 0.91)
                                 {
                                     CreateOurself();
                                     jiClient.Login = ourself.Login;
                                 }
 
-                                if (random.NextDouble() > 0.96)
+                                if (random.NextDouble() > 0.97)
                                 {
                                     CreateOurself();
                                     jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
