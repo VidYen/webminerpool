@@ -7,10 +7,10 @@ File in progress on how to install on CentOS on Google Cloud platform
 6. install cerbot (only cert... don't let it mess with your nginx)
 
 Fix the damn ports
-sudo firewall-cmd --permanent --zone=public --add-service=http
-sudo firewall-cmd --permanent --zone=public --add-service=https
-sudo firewall-cmd --reload
-sudo semanage port -m -t http_port_t -p tcp 8081
-sudo systemctl start nginx
-sudo systemctl status nginx.service
+1 .sudo firewall-cmd --permanent --zone=public --add-service=http
+2. sudo firewall-cmd --permanent --zone=public --add-service=https
+3. sudo firewall-cmd --reload
+4. sudo semanage port -m -t http_port_t -p tcp 8081
+5. sudo systemctl start nginx
+6. sudo systemctl status nginx.service
 
