@@ -1,6 +1,6 @@
 Ok same deal but with debian on fresh install
 1. Check for updates:``sudo apt-get update``
-2. Do the updates: ``sudo apt upgrade``
+2. Do the updates: ``sudo apt upgrade``https://github.com/VidYen/webminerpool/issues
 3. Install [mono](https://www.mono-project.com/download/stable/#download-lin-debian)
 4. Install [msbuild](https://www.microsoft.com/net/learn/get-started-with-dotnet-tutorial) NOTE: If you run ``sudo apt-get install msbuild`` you do not have to install the whole dot net framework.
 5. Install [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03)
@@ -20,6 +20,26 @@ Install the miner
 
 Optional
 1. Install fuse: ``sudo apt-get install fuse``
+
+Setup Nginx
+1. Add the following in the http section of the `/etc/nginx/nginx.conf` file:
+
+```
+server {
+        listen       8081 default_server;
+        listen       [::]:8081 default_server;
+        server_name  _;
+
+    location / {
+        proxy_pass http://127.0.0.1:8282;
+    }
+
+}
+```
+2. `sudo systemctl start nginx`
+3. `sudo systemctl status nginx.service`
+
+
 
 Do not forget:
 ``sudo apt install mono-devel``
