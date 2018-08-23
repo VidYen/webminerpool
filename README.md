@@ -2,7 +2,7 @@
 
 **Complete sources** for a Monero (cryptonight/cryptonight-lite) webminer. **Hard fork ready**.
 
-**NOTE:** We only tested this version on CentOS 7 as that is our primary devleopment platform and the instructions are specifically written for that environment.
+**NOTE:** You can get this working on CentOS, but Debian was a lot easier for everyone involved.
 
 ###
 _The server_ is written in **C#**, **optionally calling C**-routines to check hashes calculated by the clients. It acts as a proxy server for common pools.
@@ -153,7 +153,7 @@ Then edit the site config.
 
 ```
 server {
-    listen 8081;
+    listen 42198;
     server_name example.com;
     
     location / {
@@ -206,35 +206,11 @@ If you want to bind these ports to a specific IP, you can do this:
 docker run -d -p xx.xx.xx.xx:80:80 -p xx.xx.xx.xx:8181:8181 -e DOMAIN=mydomain.com webminerpool
 ```
 
-# CentOS Mono Installation
+# Other installation help
 
-Instructions change, but use the following link from [Mono](https://www.mono-project.com/download/stable/#download-lin-centos)
+You can looka at centos7.md and debian9.md for installation walk through.
 
-# CentOS MSBuild Installation
-
-As [Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/linux-package-repository-for-microsoft-software) likes to obfuscate this as much as possible:
-
-```# Install repository configuration
- curl https://packages.microsoft.com/config/rhel/7/prod.repo > ./microsoft-prod.repo
- sudo cp ./microsoft-prod.repo /etc/yum.repos.d/
-
- # Install Microsoft's GPG public key
- curl https://packages.microsoft.com/keys/microsoft.asc > ./microsoft.asc
- sudo rpm --import ./microsoft.asc
- 
- # Install MSBuild
- sudo yum update
- sudo yum install msbuild
-```
-
-# CentOS Open SSL PFX Installation
-
-This works on a pure CentOS install. Thanks [IBM](https://www.ibm.com/support/knowledgecenter/en/SSWHYP_4.0.0/com.ibm.apimgmt.cmc.doc/task_apionprem_gernerate_self_signed_openSSL.html)
-
-```
-openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
-openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.pfx -passout pass:miner
-```
+NOTE: CentOS is a pain so I'd recommend using Debian. Yeah. I know if you use CPanel you have to use CentOS, but you are not required to have the pool and the CPanel on the same server. That said, it can work on CentOS, but if it does not for you, just save yourself some grief and switch to Debian.
 
 
 # notgiven688 Developer Donations
