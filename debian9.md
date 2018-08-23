@@ -24,6 +24,32 @@ Optional
 Setup Nginx
 1. Add the following in the http section of the `/etc/nginx/nginx.conf` file:
 
+To do pure port 80 talking:
+
+Comment out this...
+```/etc/nginx/sites-enable/default```
+
+And `sudo vi /etc/nginx/sites-enabled/default` and turn off the default server listen and proxy pass in the nginx.conf
+
+Add: 
+
+```
+server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
+
+    location / {
+        proxy_pass http://127.0.0.1:8282;
+    }
+
+}
+
+```
+
+
+
+
 By default this seems to be friendly with most firewalls:
 
 ```
