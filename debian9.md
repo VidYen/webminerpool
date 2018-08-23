@@ -36,8 +36,9 @@ server {
 
 }
 ```
-2. `sudo systemctl start nginx`
-3. `sudo systemctl status nginx.service`
+2. You may have to disable things running on port 80 like `sudo systemctl start nginx`
+3. `sudo systemctl start nginx`
+4. If error for more info: `sudo systemctl status nginx.service`
 
 
 
