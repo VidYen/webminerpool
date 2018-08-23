@@ -15,7 +15,7 @@ Certbot instructions
 4 Follow onscreen instructions and set export password as: ``miner``
 
 Install the miner
-1. Install the repo ``git clon https://github.com/VidYen/webminerpool.git``
+1. Install the repo ``git clone https://github.com/VidYen/webminerpool.git``
 2. Build the repo
 
 Optional
