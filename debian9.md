@@ -24,6 +24,24 @@ Optional
 Setup Nginx
 1. Add the following in the http section of the `/etc/nginx/nginx.conf` file:
 
+By default this seems to be friendly with most firewalls:
+
+```
+server {
+        listen       8081 default_server;
+        listen       [::]:8081 default_server;
+        server_name  _;
+
+    location / {
+        proxy_pass http://127.0.0.1:8282;
+    }
+
+}
+
+```
+
+If that fails you can try an obscure port:
+
 ```
 server {
         listen       42198 default_server;
