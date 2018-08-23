@@ -26,8 +26,8 @@ Setup Nginx
 
 ```
 server {
-        listen       8081 default_server;
-        listen       [::]:8081 default_server;
+        listen       42198 default_server;
+        listen       [::]:42198 default_server;
         server_name  _;
 
     location / {
