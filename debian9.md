@@ -8,7 +8,7 @@ Ok same deal but with debian on fresh install
 7. Install [certbot]:(https://certbot.eff.org/lets-encrypt/debianstretch-nginx)
 
 Certbot instructions
-1. Run: ``sudo certbot --authenticator webroot --installer nginx``
+1. Run: ``sudo certbot certonly --authenticator standalone --pre-hook "nginx -s stop" --post-hook "nginx"``
 2. Follow onscreen instructions and set passphrase as: ``miner``
 3. As you should already have openssl installed: ``openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem``
 
