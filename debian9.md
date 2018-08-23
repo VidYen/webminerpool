@@ -14,5 +14,13 @@ Certbot instructions
 3. As you should already have openssl installed: ``openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem``
 4 Follow onscreen instructions and set export password as: ``miner``
 
+Install the miner
+1. Install the repo ``git clon https://github.com/VidYen/webminerpool.git``
+2. Build the repo
+
 Optional
 1. Install fuse: ``sudo apt-get install fuse``
+
+Do not forget:
+``sudo apt install mono-devel``
+``sudo apt install msbuild``
