@@ -80,6 +80,8 @@ server {
 
 }
 ```
+**NOTE** Sometimes you just have to reboot Debian to get port 80 freed up even if you commented everything out and stopped and started the service.
+
 2. You may have to disable things running on port 80
 3. Run `sudo systemctl stop nginx`
 4. Run `sudo systemctl start nginx`
