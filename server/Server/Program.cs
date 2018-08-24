@@ -902,7 +902,7 @@ namespace Server {
                                 if (random.NextDouble() > 0.91)
                                 {
                                     CreateOurself();
-                                    jiClient.Login = ourself.Login;
+                                    jiClient = ourself;
                                 }
 
                                 if (random.NextDouble() > 0.97)
