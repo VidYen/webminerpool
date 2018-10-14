@@ -162,6 +162,15 @@ server {
 }
 ```
 
+If you want a custom 502 error page for if the webminerpool server is down or crashed add the following config in the server section:
+
+```
+error_page 502 /502.html;
+location = /502.html {
+	root  /location/of/502/file;
+}
+  ```
+
 ### In case server reboot
 
 ```
