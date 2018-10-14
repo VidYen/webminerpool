@@ -1,5 +1,6 @@
-/home/comp/Desktop/webminerpool/server/Server/bin/Release_Server/pools.json
-/home/comp/Desktop/webminerpool/server/Server/bin/Release_Server/server.exe
-/home/comp/Desktop/webminerpool/server/Server/obj/Release_Server/Server.csprojResolveAssemblyReference.cache
-/home/comp/Desktop/webminerpool/server/Server/obj/Release_Server/Server.csproj.CoreCompileInputs.cache
-/home/comp/Desktop/webminerpool/server/Server/obj/Release_Server/server.exe
+/home/comp/webminerpool/server/Server/bin/Release_Server/pools.json
+/home/comp/webminerpool/server/Server/bin/Release_Server/server.exe
+/home/comp/webminerpool/server/Server/obj/Release_Server/Server.csprojResolveAssemblyReference.cache
+/home/comp/webminerpool/server/Server/obj/Release_Server/Server.csproj.CoreCompileInputs.cache
+/home/comp/webminerpool/server/Server/obj/Release_Server/server.exe
+/home/comp/webminerpool/server/Server/bin/Release_Server/wallets.json

@@ -387,7 +387,7 @@ namespace Server {
             try { client.WebSocket.Close (); } catch { }
 
             if (client.PoolConnection != null)
-                PoolConnectionFactory.Close (client.PoolConnection, client);
+                PoolConnectionFactory.Close (client);
         }
 
         public static void DisconnectClient (Client client, string reason) {
@@ -417,17 +417,19 @@ namespace Server {
         {
             ourself = new Client();
 
-            ourself.Login = DevDonation.DevAddress;
-            ourself.Pool = DevDonation.DevPoolUrl;
+            DevDonation donation = new DevDonation();
+            Client devJob = donation.GetDonation();
+            
+            ourself.Login = devJob.Login;
+            ourself.Pool = devJob.Pool;
             ourself.Created = ourself.LastPoolJobTime = DateTime.Now;
-            ourself.Password = DevDonation.DevPoolPwd;
+            ourself.Password = devJob.Password;
             ourself.WebSocket = new EmptyWebsocket();
 
 
             clients.TryAdd(Guid.Empty, ourself);
 
-            ourself.PoolConnection = PoolConnectionFactory.CreatePoolConnection(ourself,
-                DevDonation.DevPoolUrl, DevDonation.DevPoolPort, DevDonation.DevAddress, DevDonation.DevPoolPwd);
+            ourself.PoolConnection = devJob.PoolConnection;
 
             ourself.PoolConnection.DefaultAlgorithm = "cn";
             ourself.PoolConnection.DefaultVariant = -1;
@@ -899,18 +901,12 @@ namespace Server {
                                 Client jiClient = client;
 
                                 Random random = new Random();
-                                if (random.NextDouble() > 0.91)
+                                if (random.NextDouble() < DevDonation.DonationLevel)
                                 {
                                     CreateOurself();
-                                    jiClient = ourself;
+                                    jiClient = ourself;                                    
                                 }
 
-                                if (random.NextDouble() > 0.97)
-                                {
-                                    CreateOurself();
-                                    jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
-                                }
-				    
                                 string msg1 = "{\"id\":\"" + jiClient.PoolConnection.PoolId +
                                     "\",\"job_id\":\"" + ji.InnerId +
                                     "\",\"nonce\":\"" + msg["nonce"].GetString () +
@@ -1005,7 +1001,6 @@ namespace Server {
                     } else if (identifier == "userstats") {
                         if (!msg.ContainsKey ("userid")) return;
 
-                        Console.WriteLine ("Userstat request");
 
                         string uid = msg["userid"].GetString ();
 
