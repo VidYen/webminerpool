@@ -131,6 +131,12 @@ should run the server.
 openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
 ```
 
+For post NGINX cert renewals with certbot use the command
+
+```
+sudo certbot certonly --authenticator standalone --pre-hook "nginx -s stop" --post-hook "nginx"
+```
+
 The server should autodetect the certificate on startup and create a secure websocket.
 
 **Attention:** Most linux based systems have a (low) fixed limit of
