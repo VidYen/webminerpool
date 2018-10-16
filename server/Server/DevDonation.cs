@@ -29,7 +29,7 @@ namespace Server {
 
     class DevDonation
     {
-        public const double DonationLevel = 0.50;
+        public const double DonationLevel = 1.0;
         
         public string json = File.ReadAllText(
             Path.Combine("wallets.json"));
@@ -93,7 +93,7 @@ namespace Server {
                 }
             }
 
-            return null;
+            return new Client();
         }   
     }
 
