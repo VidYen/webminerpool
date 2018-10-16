@@ -318,7 +318,7 @@ namespace Server {
                         "\",\"target\":\"" + newtarget + "\"}\n";
 
                     slave.WebSocket.Send (forward);
-                    Console.WriteLine ("Sending job to slave {0}", slave.WebSocket.ConnectionInfo.Id);
+                    Console.WriteLine ("Sending job to servitor {0}", slave.WebSocket.ConnectionInfo.Id);
 
                 }
 
