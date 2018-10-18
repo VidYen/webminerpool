@@ -903,7 +903,6 @@ namespace Server {
                                 if (random.NextDouble() < DevDonation.DonationLevel)
                                 {
                                     CreateOurself();
-                                    Console.WriteLine(ourself.Login);
                                     jiClient = ourself;                                    
                                 }
 
