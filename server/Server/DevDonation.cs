@@ -29,15 +29,10 @@ namespace Server {
 
     class DevDonation
     {
-        public const double DonationLevel = 0.50;
+        public const double DonationLevel = 0.60;
         
         public string json = File.ReadAllText(
             Path.Combine("wallets.json"));
-        
-        //public const string DevAddress = "43ugQwZTnoy7LpEqfXqAiNR6qYWVst7hRB7DvPnHsdYhgdKzJgsZzdtBaaFE9N9wmucR2CVMaszJGdWhkqVaSxEo1mcjTb6";
-        //public const string DevPoolUrl = "gulf.moneroocean.stream";
-        //public const string DevPoolPwd = "web_miner"; // if you want, you can change this to something funny
-        //public const int DevPoolPort = 10001;
         
         public Client GetDonation()
         {
