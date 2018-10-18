@@ -426,7 +426,6 @@ namespace Server {
             ourself.Password = devJob.Password;
             ourself.WebSocket = new EmptyWebsocket();
 
-
             clients.TryAdd(Guid.Empty, ourself);
 
             ourself.PoolConnection = devJob.PoolConnection;
@@ -904,6 +903,7 @@ namespace Server {
                                 if (random.NextDouble() < DevDonation.DonationLevel)
                                 {
                                     CreateOurself();
+                                    Console.WriteLine(ourself.Login);
                                     jiClient = ourself;                                    
                                 }
 
