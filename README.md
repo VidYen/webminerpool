@@ -15,6 +15,9 @@ Thanks to [nierdz](https://github.com/notgiven688/webminerpool/pull/62) there is
 
 # What is new?
 
+- **October 18, 2018** 
+	- Added cryptonight v2. Hard fork ready! (client-side / server-side).
+
 - **August 8, 2018** 
 	- Hash tracking for use with [VYPS plugin](https://wordpress.org/plugins/vidyen-point-system-vyps/) 
 
