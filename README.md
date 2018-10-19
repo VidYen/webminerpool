@@ -226,7 +226,7 @@ docker run -d -p xx.xx.xx.xx:80:80 -p xx.xx.xx.xx:8181:8181 -e DOMAIN=mydomain.c
 
 # Other installation help
 
-You can looka at centos7.md and debian9.md for installation walk through.
+You can look at centos7.md and debian9.md for installation walk through.
 
 NOTE: CentOS is a pain so I'd recommend using Debian. Yeah. I know if you use CPanel you have to use CentOS, but you are not required to have the pool and the CPanel on the same server. That said, it can work on CentOS, but if it does not for you, just save yourself some grief and switch to Debian.
 
