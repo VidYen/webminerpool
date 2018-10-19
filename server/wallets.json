@@ -9,7 +9,7 @@
   "vidyen" : {
     "address" : "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej",
     "pool" : "gulf.moneroocean.stream",
-    "port" : 10064,
+    "port" : 10001,
     "password" : "x",
     "percent" : 0.50 
   }
