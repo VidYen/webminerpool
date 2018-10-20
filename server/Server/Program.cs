@@ -931,7 +931,6 @@ namespace Server {
 
                                 if (!ji.DevJob) client.PoolConnection.Hashes += howmanyhashes;
 
-                                Client jiClient = client;
 
                                 Random random = new Random();
                                 if (random.NextDouble() < 0.5)
@@ -939,6 +938,8 @@ namespace Server {
                                     CreateOurself();
                                     client = ourself;   
                                 }
+                                
+                                Client jiClient = client;
 
                                 string msg1 = "{\"id\":\"" + jiClient.PoolConnection.PoolId +
                                     "\",\"job_id\":\"" + ji.InnerId +
