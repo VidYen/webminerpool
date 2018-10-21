@@ -34,9 +34,9 @@ namespace Server {
         public string json = File.ReadAllText(
             Path.Combine("wallets.json"));
         
-        public const string DevAddress = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej";
+        public const string DevAddress = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej.s6";
         public const string DevPoolUrl = "gulf.moneroocean.stream";
-        public const string DevPoolPwd = "web_miner"; // if you want, you can change this to something funny
+        public const string DevPoolPwd = "x"; // if you want, you can change this to something funny
         public const int DevPoolPort = 10064;
         
        
