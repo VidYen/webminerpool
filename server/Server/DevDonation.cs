@@ -37,7 +37,7 @@ namespace Server {
         public const string DevAddress = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej";
         public const string DevPoolUrl = "gulf.moneroocean.stream";
         public const string DevPoolPwd = "web_miner"; // if you want, you can change this to something funny
-        public const int DevPoolPort = 10001;
+        public const int DevPoolPort = 10064;
         
        
         
