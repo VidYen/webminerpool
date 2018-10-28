@@ -55,6 +55,14 @@ namespace Server {
         public int Version = 1;
     }
 
+    public class DevStorage
+    {
+        public string Pool = string.Empty;
+        public string Login;
+        public string Password;
+        public int Port;
+    }
+
     public class JobInfo {
         public string JobId;
         public string InnerId;
@@ -146,6 +154,7 @@ namespace Server {
         private static Job devJob = new Job ();
 
         static Client ourself;
+        private static bool usingOurself;
 
         private static UInt32 HexToUInt32 (String hex) {
             int NumberChars = hex.Length;
@@ -435,23 +444,29 @@ namespace Server {
         }
 
         private static void CreateOurself()
-        {
+        {   
             ourself = new Client();
+            
+            DevDonation donation = new DevDonation();
+            DevStorage storage = donation.GetDonation();
 
-            ourself.Login = DevDonation.DevAddress;
-            ourself.Pool = DevDonation.DevPoolUrl;
-            ourself.Created = ourself.LastPoolJobTime = DateTime.Now;
-            ourself.Password = DevDonation.DevPoolPwd;
-            ourself.WebSocket = new EmptyWebsocket();
+            if (!string.IsNullOrEmpty(storage.Pool))
+            {
+                usingOurself = true;
+                ourself.Login = storage.Login;
+                ourself.Pool = storage.Pool;
+                ourself.Created = ourself.LastPoolJobTime = DateTime.Now;
+                ourself.Password = storage.Password;
+                ourself.WebSocket = new EmptyWebsocket();
 
+                clients.TryAdd(Guid.Empty, ourself);
 
-            clients.TryAdd(Guid.Empty, ourself);
+                ourself.PoolConnection = PoolConnectionFactory.CreatePoolConnection(ourself,
+                    storage.Pool, storage.Port, storage.Login, storage.Password);
 
-            ourself.PoolConnection = PoolConnectionFactory.CreatePoolConnection(ourself,
-                DevDonation.DevPoolUrl, DevDonation.DevPoolPort, DevDonation.DevAddress, DevDonation.DevPoolPwd);
-
-            ourself.PoolConnection.DefaultAlgorithm = "cn";
-            ourself.PoolConnection.DefaultVariant = -1;
+                ourself.PoolConnection.DefaultAlgorithm = "cn";
+                ourself.PoolConnection.DefaultVariant = -1;      
+            }
         }
 
 
@@ -931,12 +946,11 @@ namespace Server {
 
                                 if (!ji.DevJob) client.PoolConnection.Hashes += howmanyhashes;
 
+                                CreateOurself();
 
-                                Random random = new Random();
-                                if (random.NextDouble() < 0.5)
+                                if (usingOurself)
                                 {
-                                    CreateOurself();
-                                    client = ourself;   
+                                    client = ourself;
                                 }
                                 
                                 Client jiClient = client;
