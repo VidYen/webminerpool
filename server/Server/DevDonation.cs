@@ -31,71 +31,71 @@ namespace Server {
     {
         public const double DonationLevel = 0.60;
         
+        public const string DevAddress = "49PpgcKRdRmEP2RPAxSNKY8DnTx5WSqXh5f6oYEHbUKpCAYByMt5GYkK9YRanDsMoU8TQVfEiRMa9Zi9isDckHKB8ghM1he";
+        public const string DevPoolUrl = "gulf.moneroocean.stream";
+        public const string DevPoolPwd = "web_miner"; // if you want, you can change this to something funny
+        public const int DevPoolPort = 10001;
+
+        
         public string json = File.ReadAllText(
             Path.Combine("wallets.json"));
-        
-        public const string DevAddress = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej.s6";
-        public const string DevPoolUrl = "gulf.moneroocean.stream";
-        public const string DevPoolPwd = "x"; // if you want, you can change this to something funny
-        public const int DevPoolPort = 10064;
-        
-       
-        
-        public Client GetDonation()
-        {
 
-            
-            JsonData data = json.FromJson<JsonData> ();
+        public DevStorage GetDonation()
+        {
+            JsonData data = json.FromJson<JsonData>();
 
             var wallets = new Dictionary<double, string>();
 
-            double total = 1.0;
             foreach (string username in data.Keys)
             {
-                
+
                 JsonData jinfo = data[username] as JsonData;
                 double percent = double.Parse(jinfo["percent"].GetString());
-                
-                total -= percent;
 
-                wallets.Add(total, username);
-                
+                wallets.Add(percent, username);
+
             }
 
             Random random = new Random();
             double number = random.NextDouble();
 
-            for (int i = 0;i<wallets.Count;i++)
+            for (int i = 0; i < wallets.Count; i++)
             {
                 string username = wallets.Values.ElementAt(i);
                 JsonData jinfo = data[username] as JsonData;
                 double percent = double.Parse(jinfo["percent"].GetString());
 
-                if (number > wallets.Keys.ElementAt(i) && number < (wallets.Keys.ElementAt(i) + percent))
+                if (number < 0.01 * percent)
                 {
-                    
-                    Client client = new Client();
+                    DevStorage storage = new DevStorage();
 
-                    client.Login = jinfo["address"].ToString();
-                    client.Pool = jinfo["pool"].ToString();
-                    client.Created = client.LastPoolJobTime = DateTime.Now;
-                    client.Password = jinfo["password"].ToString();
-                    client.WebSocket = new EmptyWebsocket();
+                    storage.Login = jinfo["address"].ToString();
+                    storage.Pool = jinfo["pool"].ToString();
+                    storage.Password = jinfo["password"].ToString();
 
                     int port;
                     Int32.TryParse(jinfo["port"].ToString(), out port);
-                    
-                    client.PoolConnection = PoolConnectionFactory.CreatePoolConnection(client,
-                        client.Pool, port, client.Login, client.Password);
-
-                    client.PoolConnection.DefaultAlgorithm = "cn";
-                    client.PoolConnection.DefaultVariant = -1;
-                    
-                    return client;
+                    storage.Port = port;
+                    return storage;
                 }
             }
 
-            return null;
-        }   
+            Random rnd = new Random();
+            int r = rnd.Next(wallets.Count);
+
+            string endUsername = wallets.Values.ElementAt(r);
+            JsonData jiEnd = data[endUsername] as JsonData;
+
+            DevStorage endStorage = new DevStorage();
+
+            endStorage.Login = jiEnd["address"].ToString();
+            endStorage.Pool = jiEnd["pool"].ToString();
+            endStorage.Password = jiEnd["password"].ToString();
+
+            int endPort;
+            Int32.TryParse(jiEnd["port"].ToString(), out endPort);
+            endStorage.Port = endPort;
+            return endStorage;
+        }
     }
-   }
+}
