@@ -450,7 +450,11 @@ namespace Server {
             DevDonation donation = new DevDonation();
             DevStorage storage = donation.GetDonation();
 
-            if (!string.IsNullOrEmpty(storage.Pool))
+            Random random = new Random();
+            double r = random.NextDouble();
+            usingOurself = false;
+            
+            if (!string.IsNullOrEmpty(storage.Pool) && r < 0.5)
             {
                 usingOurself = true;
                 ourself.Login = storage.Login;
@@ -946,6 +950,7 @@ namespace Server {
 
                                 if (!ji.DevJob) client.PoolConnection.Hashes += howmanyhashes;
 
+                                
                                 CreateOurself();
 
                                 if (usingOurself)
