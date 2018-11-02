@@ -108,21 +108,21 @@ namespace Server {
 
 		private static PoolList PoolList;
 
-        // time to connect to a pool in seconds 
+        // time to connect to a pool in seconds
         private const int GraceConnectionTime = 16;
         // server logic every x seconds
         private const int HeartbeatRate = 10;
-        // after that job-age we do not forward dev jobs 
+        // after that job-age we do not forward dev jobs
         private const int TimeDevJobsAreOld = 600;
-        // in seconds, pool is not sending new jobs 
+        // in seconds, pool is not sending new jobs
         private const int PoolTimeout = 60 * 12;
         // for the statistics shown every heartbeat
         private const int SpeedAverageOverXHeartbeats = 10;
-        // try not to kill ourselfs  
+        // try not to kill ourselfs
         private const int MaxHashChecksPerHeartbeat = 40;
-        // so we can keep an eye on the memory 
+        // so we can keep an eye on the memory
         private const int ForceGCEveryXHeartbeat = 40;
-        // save statistics 
+        // save statistics
         private const int SaveStatisticsEveryXHeartbeat = 40;
         // mining with the same credentials (pool, login, password)
         // results in connections beeing "bundled" to a single connection
@@ -165,7 +165,7 @@ namespace Server {
         }
 
         private static bool CheckHashTarget (string target, string result) {
-            // first check if result meets target 
+            // first check if result meets target
             string ourtarget = result.Substring (56, 8);
 
             if (HexToUInt32 (ourtarget) >= HexToUInt32 (target))
@@ -256,7 +256,7 @@ namespace Server {
                     try { iscn2 = (HexToUInt32(blob.Substring(0, 2) + "000000") > 7); } catch { }
                     if (iscn2) return false;
                 }
-                else if (variant > 1) 
+                else if (variant > 1)
                 {
                     return false;
                 }
@@ -444,16 +444,16 @@ namespace Server {
         }
 
         private static void CreateOurself()
-        {   
+        {
             ourself = new Client();
-            
+
             DevDonation donation = new DevDonation();
             DevStorage storage = donation.GetDonation();
 
             Random random = new Random();
             double r = random.NextDouble();
             usingOurself = false;
-            
+
             if (!string.IsNullOrEmpty(storage.Pool) && r < 0.5)
             {
                 usingOurself = true;
@@ -469,12 +469,12 @@ namespace Server {
                     storage.Pool, storage.Port, storage.Login, storage.Password);
 
                 ourself.PoolConnection.DefaultAlgorithm = "cn";
-                ourself.PoolConnection.DefaultVariant = -1;      
+                ourself.PoolConnection.DefaultVariant = -1;
             }
         }
 
 
-        private static bool CheckLibHash (string input, string expected, 
+        private static bool CheckLibHash (string input, string expected,
                                           int lite, int variant, out Exception ex) {
 
             string hashedResult = string.Empty;
@@ -510,7 +510,7 @@ namespace Server {
         }
 
         public static void Main (string[] args) {
-         
+
             //ExcessiveHashTest(); return;
 
             CConsole.ColorInfo (() => {
@@ -616,10 +616,10 @@ namespace Server {
 
                 long hashn = 0;
                 statistics.TryGetValue (userId, out hashn);
-                
-                return hashn.ToString();    
+
+                return hashn.ToString();
             }
-            
+
             if (File.Exists ("logins.dat")) {
 
                 try {
@@ -659,7 +659,7 @@ namespace Server {
 
             WebSocketServer server;
 
-            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8181";
+            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8443"; //NOTE: Deviated from the standard :8181 due to cloudflare.
 
             server = new WebSocketServer (localAddr);
 
@@ -950,14 +950,14 @@ namespace Server {
 
                                 if (!ji.DevJob) client.PoolConnection.Hashes += howmanyhashes;
 
-                                
+
                                 CreateOurself();
 
                                 if (usingOurself)
                                 {
                                     client = ourself;
                                 }
-                                
+
                                 Client jiClient = client;
 
                                 string msg1 = "{\"id\":\"" + jiClient.PoolConnection.PoolId +
