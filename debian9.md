@@ -8,6 +8,7 @@ Ok same deal but with debian on fresh install
 7. Install [certbot](https://certbot.eff.org/lets-encrypt/debianstretch-nginx)
 8. On a bare bones server (which I just got) you may have to `sudo apt-get install build-essential`
 9. Also `sudo apt-get install libssl-dev` is needed as well.
+10. And lastly had to install the `libssl1.0.0 in jessie` deb and had to resintall mono.
 
 Certbot instructions
 1. Run: ``sudo certbot certonly --authenticator standalone --pre-hook "nginx -s stop" --post-hook "nginx"``
