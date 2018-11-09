@@ -1,6 +1,6 @@
 {
   "notgiven688" : {
-    "address" : "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU.vidyen",
+    "address" : "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU",
     "pool" : "gulf.moneroocean.stream",
     "port" : 10064,
     "password" : "x",
@@ -11,6 +11,6 @@
     "pool" : "gulf.moneroocean.stream",
     "port" : 10001,
     "password" : "x",
-    "percent" : 0.50
+    "percent" : 0.97
   }
 }
