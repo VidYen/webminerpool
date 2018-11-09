@@ -6,6 +6,7 @@ Ok same deal but with debian on fresh install
 5. Install [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03)
 6. Install gninx: ``sudo apt-get install nginx``
 7. Install [certbot](https://certbot.eff.org/lets-encrypt/debianstretch-nginx)
+8. On a bare bones server (which I just got) you may have to `sudo apt-get install build-essential`
 
 Certbot instructions
 1. Run: ``sudo certbot certonly --authenticator standalone --pre-hook "nginx -s stop" --post-hook "nginx"``
