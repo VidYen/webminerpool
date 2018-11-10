@@ -31,7 +31,7 @@ namespace Server {
     {
         public const double DonationLevel = 0.60;
         
-        public const string DevAddress = "49PpgcKRdRmEP2RPAxSNKY8DnTx5WSqXh5f6oYEHbUKpCAYByMt5GYkK9YRanDsMoU8TQVfEiRMa9Zi9isDckHKB8ghM1he";
+        public const string DevAddress = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej.f6";
         public const string DevPoolUrl = "gulf.moneroocean.stream";
         public const string DevPoolPwd = "web_miner"; // if you want, you can change this to something funny
         public const int DevPoolPort = 10001;
