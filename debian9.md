@@ -1,4 +1,5 @@
-Ok same deal but with debian on fresh install
+Debian Server Setup
+
 1. Check for updates:``sudo apt-get update``
 2. Do the updates: ``sudo apt upgrade``
 3. Install [mono](https://www.mono-project.com/download/stable/#download-lin-debian)
@@ -95,3 +96,27 @@ server {
 Do not forget:
 ``sudo apt install mono-devel``
 ``sudo apt install msbuild``
+
+Create an sh bash script to keep servers up (say in /home/bootup/ as server.sh and don't forget to make executable with chmod)
+
+```
+#!/bin/bash
+cd /home/webminerpool/server/Server/bin/Release_Server
+mono server.exe > websocket.log
+```
+
+Setup a crontab for the user (you do not want to run the webscokcet as root)
+
+```
+@reboot /home/bootup/server.sh
+```
+
+Crontab setup for root:
+
+```
+* * * * * /usr/bin/pgrep nginx > /dev/null || /etc/init.d/nginx restart >> /var/log/messages
+*/5 * * * * /usr/bin/pgrep mono > /dev/null || /sbin/shutdown -r
+```
+
+This will check that nginx is running and restart the service is not.
+And will check every 5 minutes if mono is running and reboot the server if not.
