@@ -35,7 +35,7 @@ Comment out this...
 
 And `sudo vi /etc/nginx/sites-enabled/default` and turn off the default server listen and proxy pass in the nginx.conf
 
-Add: 
+Add:
 
 ```
 server {
