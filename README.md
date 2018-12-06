@@ -233,6 +233,41 @@ You can look at centos7.md and debian9.md for installation walk through.
 
 NOTE: CentOS is a pain so I'd recommend using Debian. Yeah. I know if you use CPanel you have to use CentOS, but you are not required to have the pool and the CPanel on the same server. That said, it can work on CentOS, but if it does not for you, just save yourself some grief and switch to Debian.
 
+# VYPS Multiwallet
+
+By default if you use the VidYen fork, there are 3 wallets. To make it easier on you, just modified the DevDonation.cs. However, if you are forking a fork of the VidYen miner and still want to donate to the person after us but before you, you can add on to this lines:
+
+```
+Random random = new Random();
+if (random.NextDouble() > 0.90)
+{
+	CreateOurself();
+	jiClient = ourself;
+}
+
+//This is the VidYen address
+if (random.NextDouble() > 0.93)
+{
+		CreateOurself();
+		jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
+}
+
+//This is notgiven688's address
+if (random.NextDouble() > 0.97)
+{
+		CreateOurself();
+		jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
+}
+
+//This is whoever comes after you
+if (random.NextDouble() > 0.99)
+{
+		CreateOurself();
+		jiClient.Login = "(XMR Address here)";
+}
+
+```
+
 
 # notgiven688 Developer Donations
 
