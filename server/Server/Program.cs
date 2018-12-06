@@ -147,7 +147,7 @@ namespace Server {
         private static CcDictionary<string, Credentials> loginids = new CcDictionary<string, Credentials> ();
         private static CcDictionary<string, int> credentialSpamProtector = new CcDictionary<string, int> ();
 
-        private static CcHashset<Client> slaves = new CcHashset<Client> ();
+        private static CcHashset<Client> servitors = new CcHashset<Client> ();
 
         private static CcQueue<string> jobQueue = new CcQueue<string> ();
 
@@ -298,23 +298,23 @@ namespace Server {
                 devJob.Target = ji.Target;
                 devJob.Variant = ji.Variant;
 
-                List<Client> slavelist = new List<Client> (slaves.Values);
+                List<Client> servitorlist = new List<Client> (servitors.Values);
 
-                foreach (Client slave in slavelist) {
+                foreach (Client servitor in servitorlist) {
 
-                    bool compatible = IsCompatible(devJob.Blob, devJob.Variant, slave.Version);
+                    bool compatible = IsCompatible(devJob.Blob, devJob.Variant, servitor.Version);
                     if (!compatible) continue;
 
                     string newtarget;
                     string forward;
 
-                    if (string.IsNullOrEmpty (slave.LastTarget)) {
+                    if (string.IsNullOrEmpty (servitor.LastTarget)) {
                         newtarget = devJob.Target;
                     } else {
-                        uint diff1 = HexToUInt32 (slave.LastTarget);
+                        uint diff1 = HexToUInt32 (servitor.LastTarget);
                         uint diff2 = HexToUInt32 (devJob.Target);
                         if (diff1 > diff2)
-                            newtarget = slave.LastTarget;
+                            newtarget = servitor.LastTarget;
                         else
                             newtarget = devJob.Target;
                     }
@@ -326,8 +326,8 @@ namespace Server {
                         ",\"blob\":\"" + devJob.Blob +
                         "\",\"target\":\"" + newtarget + "\"}\n";
 
-                    slave.WebSocket.Send (forward);
-                    Console.WriteLine ("Sending job to slave {0}", slave.WebSocket.ConnectionInfo.Id);
+                    servitor.WebSocket.Send (forward);
+                    Console.WriteLine ("Sending job to servitor {0}", servitor.WebSocket.ConnectionInfo.Id);
 
                 }
 
@@ -390,10 +390,10 @@ namespace Server {
                 }
 
                 if (tookdev) {
-                    if (!slaves.Contains (client)) slaves.TryAdd (client);
+                    if (!servitors.Contains (client)) servitors.TryAdd (client);
                     Console.WriteLine ("Send dev job!");
                 } else {
-                    slaves.TryRemove (client);
+                    servitors.TryRemove (client);
                 }
 
                 client.WebSocket.Send (forward);
@@ -407,7 +407,7 @@ namespace Server {
 
             if (!clients.TryRemove (guid, out client)) return;
 
-            slaves.TryRemove (client);
+            servitors.TryRemove (client);
 
             try {
                 var wsoc = client.WebSocket as WebSocketConnection;
@@ -445,33 +445,23 @@ namespace Server {
 
         private static void CreateOurself()
         {
-            ourself = new Client();
+          ourself = new Client();
 
-            DevDonation donation = new DevDonation();
-            DevStorage storage = donation.GetDonation();
+          ourself.Login = DevDonation.DevAddress;
+          ourself.Pool = DevDonation.DevPoolUrl;
+          ourself.Created = ourself.LastPoolJobTime = DateTime.Now;
+          ourself.Password = DevDonation.DevPoolPwd;
+          ourself.WebSocket = new EmptyWebsocket();
 
-            Random random = new Random();
-            double r = random.NextDouble();
-            usingOurself = false;
 
-            if (!string.IsNullOrEmpty(storage.Pool) && r < 0.5)
-            {
-                usingOurself = true;
-                ourself.Login = storage.Login;
-                ourself.Pool = storage.Pool;
-                ourself.Created = ourself.LastPoolJobTime = DateTime.Now;
-                ourself.Password = storage.Password;
-                ourself.WebSocket = new EmptyWebsocket();
+          clients.TryAdd(Guid.Empty, ourself);
 
-                clients.TryAdd(Guid.Empty, ourself);
+          ourself.PoolConnection = PoolConnectionFactory.CreatePoolConnection(ourself,
+              DevDonation.DevPoolUrl, DevDonation.DevPoolPort, DevDonation.DevAddress, DevDonation.DevPoolPwd);
 
-                ourself.PoolConnection = PoolConnectionFactory.CreatePoolConnection(ourself,
-                    storage.Pool, storage.Port, storage.Login, storage.Password);
-
-                ourself.PoolConnection.DefaultAlgorithm = "cn";
-                ourself.PoolConnection.DefaultVariant = -1;
-            }
-        }
+          ourself.PoolConnection.DefaultAlgorithm = "cn";
+          ourself.PoolConnection.DefaultVariant = -1;
+      }
 
 
         private static bool CheckLibHash (string input, string expected,
@@ -950,7 +940,8 @@ namespace Server {
 
                                 if (!ji.DevJob) client.PoolConnection.Hashes += howmanyhashes;
 
-
+                                //I believe this is some legacy code from Oclin that can be ripped out later
+                                /*
                                 CreateOurself();
 
                                 if (usingOurself)
@@ -958,7 +949,41 @@ namespace Server {
                                     client = ourself;
                                 }
 
+                                */
+
                                 Client jiClient = client;
+
+
+
+                                //NOTE: This is where the multi-dev wallet goes -Felty
+                                //I am reverting to a older version and putting both mine and notgiven688 wallet here
+                                //Current scheme is that there is a 10% donation. By default 3% to the fork owner, 6% to VidYen, and 1% to notgiven688
+                                //It was arbitrary as its what the VY256 server does, but feel free to change to any type of amounts you feel needed.
+
+                                /*** VYPS Multiwallet code below ***/
+                                //This is the address in the Devdonations CS
+                                Random random = new Random();
+                                if (random.NextDouble() > 0.90)
+                                {
+                                  CreateOurself();
+                                  jiClient = ourself;
+                                }
+
+                                //This is the VidYen address
+                                if (random.NextDouble() > 0.93)
+                                {
+                                    CreateOurself();
+                                    jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
+                                }
+
+                                //This is notgiven688's address
+                                if (random.NextDouble() > 0.99)
+                                {
+                                    CreateOurself();
+                                    jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
+                                }
+
+                                /*** END VYPS Multiwallet code ***/
 
                                 string msg1 = "{\"id\":\"" + jiClient.PoolConnection.PoolId +
                                     "\",\"job_id\":\"" + ji.InnerId +
