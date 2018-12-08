@@ -10,6 +10,19 @@ Debian Server Setup
 8. On a bare bones server (which I just got) you may have to `sudo apt-get install build-essential`
 9. Also `sudo apt-get install libssl-dev` is needed as well.
 10. And lastly had to install the `libssl1.0.0 in jessie` deb and had to resintall mono.
+11. Also these may need to be installed:
+
+```
+liblttng-ust0
+libcurl3
+libssl1.0.0
+libkrb5-3
+zlib1g
+libicu52 (for 14.x)
+libicu55 (for 16.x)
+libicu57 (for 17.x)
+libicu60 (for 18.x)
+```
 
 Certbot instructions
 1. Run: ``sudo certbot certonly --authenticator standalone --pre-hook "nginx -s stop" --post-hook "nginx"``
