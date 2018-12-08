@@ -2,7 +2,7 @@ Debian Server Setup
 
 1. Check for updates:``sudo apt-get update``
 2. Do the updates: ``sudo apt upgrade``
-3. Install [mono](https://www.mono-project.com/download/stable/#download-lin-debian)
+3. Install [mono](https://www.mono-project.com/download/stable/#download-lin-debian) NOTE: You may have to install with ``mono-complete``
 4. Install [msbuild](https://www.microsoft.com/net/learn/get-started-with-dotnet-tutorial) NOTE: If you run ``sudo apt-get install msbuild`` you do not have to install the whole dot net framework. (Note You still need to add the repos in the dotnet part)
 5. Install [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03)
 6. Install gninx: ``sudo apt-get install nginx``
