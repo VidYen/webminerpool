@@ -154,7 +154,7 @@ namespace Server {
         private static Job devJob = new Job ();
 
         static Client ourself;
-        //private static bool usingOurself; //This was giving error.
+        //private static bool usingOurself; //This was giving error. //Uncomment if this does not work s6
 
         private static UInt32 HexToUInt32 (String hex) {
             int NumberChars = hex.Length;
@@ -964,7 +964,8 @@ namespace Server {
                                 if (random.NextDouble() > 0.0)
                                 {
                                   CreateOurself();
-                                  Client jiClient = client; //I'm not so sure on this Client before the jiClient.
+                                  //Client jiClient = client; //I'm not so sure on this Client before the jiClient.
+                                  jiClient = client
                                 }
 
                                 //This is the address on the dev wallet. Honestly, I'm not sure why I have this anymore -Felty //I will have to remove and fix.
