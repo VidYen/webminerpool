@@ -965,7 +965,7 @@ namespace Server {
                                 {
                                   CreateOurself();
                                   //Client jiClient = client; //I'm not so sure on this Client before the jiClient.
-                                  jiClient = client
+                                  jiClient = client;
                                 }
 
                                 //This is the address on the dev wallet. Honestly, I'm not sure why I have this anymore -Felty //I will have to remove and fix.
