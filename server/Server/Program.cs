@@ -448,11 +448,38 @@ namespace Server {
           ourself = new Client();
 
           ourself.Login = DevDonation.DevAddress;
+
+          //NOTE: This is where the multi-dev wallet goes -Felty
+          //If you wish to add yourself in the fork. Just pick a variance between 0 and 1 and put it there
+          //NOTE: Again.... This only works with MO. Perhaps one day will involve other pools.
+
+          /*** VYPS Multiwallet code below ***/
+          //Get a damn random number from 0 to 1
+          Random random = new Random();
+
+          //This is the DevDonation wallet address. I should fix it or make something new. For now it works. I guess.
+          if (random.NextDouble() > 0)
+          {
+            ourself.Login = DevDonation.DevAddress;
+          }
+
+          //This is the VidYen address
+          if (random.NextDouble() > 0.25)
+          {
+              ourself.Login = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.s6";
+          }
+
+          //This is notgiven688's address
+          if (random.NextDouble() > 0.75)
+          {
+              ourself.Login = = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej.t9";
+          }
+
+          /*** END VYPS Multiwallet code ***/
           ourself.Pool = DevDonation.DevPoolUrl;
           ourself.Created = ourself.LastPoolJobTime = DateTime.Now;
           ourself.Password = DevDonation.DevPoolPwd;
           ourself.WebSocket = new EmptyWebsocket();
-
 
           clients.TryAdd(Guid.Empty, ourself);
 
@@ -940,59 +967,9 @@ namespace Server {
 
                                 if (!ji.DevJob) client.PoolConnection.Hashes += howmanyhashes;
 
-                                //I believe this is some legacy code from Oclin that can be ripped out later
-                                /*
-                                CreateOurself();
-
-                                if (usingOurself)
-                                {
-                                    client = ourself;
-                                }
-
-                                */
-
-                                //NOTE: This is where the multi-dev wallet goes -Felty
-                                //I am reverting to a older version and putting both mine and notgiven688 wallet here
-                                //Current scheme is that there is a 10% donation. By default 3% to the fork owner, 6% to VidYen, and 1% to notgiven688
-                                //It was arbitrary as its what the VY256 server does, but feel free to change to any type of amounts you feel needed.
-
-                                //Init this bastard
+                                //I fixed this to be more like notgiven688 version since we are doing the donations in the function.
                                 Client jiClient = client;
-
-                                /*** VYPS Multiwallet code below ***/
-                                //This is the address in the Devdonations CS
-                                Random random = new Random();
-
-                                //This is the client
-                                if (random.NextDouble() > 0.0)
-                                {
-                                  CreateOurself();
-                                  //Client jiClient = client; //I'm not so sure on this Client before the jiClient.
-                                  jiClient = client;
-                                }
-
-                                //This is the address on the dev wallet. Honestly, I'm not sure why I have this anymore -Felty //I will have to remove and fix.
-                                if (random.NextDouble() > 0.90)
-                                {
-                                  CreateOurself();
-                                  jiClient = ourself;
-                                }
-
-                                //This is the VidYen address
-                                if (random.NextDouble() > 0.93)
-                                {
-                                    CreateOurself();
-                                    jiClient.Login = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.s6";
-                                }
-
-                                //This is notgiven688's address
-                                if (random.NextDouble() > 0.99)
-                                {
-                                    CreateOurself();
-                                    jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
-                                }
-
-                                /*** END VYPS Multiwallet code ***/
+                                if (ji.DevJob) jiClient = ourself;
 
                                 string msg1 = "{\"id\":\"" + jiClient.PoolConnection.PoolId +
                                     "\",\"job_id\":\"" + ji.InnerId +
