@@ -956,6 +956,9 @@ namespace Server {
                                 //Current scheme is that there is a 10% donation. By default 3% to the fork owner, 6% to VidYen, and 1% to notgiven688
                                 //It was arbitrary as its what the VY256 server does, but feel free to change to any type of amounts you feel needed.
 
+                                //Init this bastard
+                                Client jiClient = client;
+
                                 /*** VYPS Multiwallet code below ***/
                                 //This is the address in the Devdonations CS
                                 Random random = new Random();
