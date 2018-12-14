@@ -154,7 +154,7 @@ namespace Server {
         private static Job devJob = new Job ();
 
         static Client ourself;
-        private static bool usingOurself; //This was giving error.
+        //private static bool usingOurself; //This was giving error.
 
         private static UInt32 HexToUInt32 (String hex) {
             int NumberChars = hex.Length;
