@@ -513,7 +513,7 @@ namespace Server {
 
                 double devfee = (new Client ()).Fee;
                 if (devfee > double.Epsilon)
-                    Console.WriteLine ("Developer fee of {0}% enabled. Thank You.", (devfee * 100.0d).ToString ("F1"));
+                    Console.WriteLine ("Developer fee of 10% enabled. Thank You.", (devfee * 100.0d).ToString ("F1"));
 
                 Console.WriteLine ();
             });
@@ -951,10 +951,6 @@ namespace Server {
 
                                 */
 
-                                Client jiClient = client;
-
-
-
                                 //NOTE: This is where the multi-dev wallet goes -Felty
                                 //I am reverting to a older version and putting both mine and notgiven688 wallet here
                                 //Current scheme is that there is a 10% donation. By default 3% to the fork owner, 6% to VidYen, and 1% to notgiven688
@@ -963,6 +959,15 @@ namespace Server {
                                 /*** VYPS Multiwallet code below ***/
                                 //This is the address in the Devdonations CS
                                 Random random = new Random();
+
+                                //This is the client
+                                if (random.NextDouble() > 0.0)
+                                {
+                                  CreateOurself();
+                                  Client jiClient = client; //I'm not so sure on this Client before the jiClient.
+                                }
+
+                                //This is the address on the dev wallet. Honestly, I'm not sure why I have this anymore -Felty //I will have to remove and fix.
                                 if (random.NextDouble() > 0.90)
                                 {
                                   CreateOurself();
@@ -1197,7 +1202,8 @@ namespace Server {
                     } else {
                         // we removed ourself because we got disconnected from the pool
                         // make us alive again!
-                        if (clients.Count > 4 && DevDonation.DonationLevel > double.Epsilon) {
+                        //NOTE: I set this to 1. I'm not entirely sure if that is best.
+                        if (clients.Count > 1 && DevDonation.DonationLevel > double.Epsilon) {
                             CConsole.ColorWarning (() =>
                                 Console.WriteLine ("disconnected from dev pool. trying to reconnect."));
                             devJob = new Job ();
