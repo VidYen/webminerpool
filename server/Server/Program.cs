@@ -973,7 +973,7 @@ namespace Server {
                                 if (random.NextDouble() > 0.93)
                                 {
                                     CreateOurself();
-                                    jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
+                                    jiClient.Login = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.s6";
                                 }
 
                                 //This is notgiven688's address
