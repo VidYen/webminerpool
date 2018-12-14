@@ -26,7 +26,7 @@ namespace Server {
 
     class DevDonation
     {
-        public const double DonationLevel = 1; //NOTE: I need to fix this later. But this is 100% because site admin is considered part of the mix. See lin 966 or so in the Program.cs -Felty
+        public const double DonationLevel = 0.9; //NOTE: I need to fix this later. But this is 100% because site admin is considered part of the mix. See lin 966 or so in the Program.cs -Felty
 
         public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.f6";
         public const string DevPoolUrl = "gulf.moneroocean.stream";
