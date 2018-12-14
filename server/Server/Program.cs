@@ -472,7 +472,7 @@ namespace Server {
           //This is notgiven688's address
           if (random.NextDouble() > 0.75)
           {
-              ourself.Login = = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej.t9";
+              ourself.Login = "4AgpWKTjsyrFeyWD7bpcYjbQG7MVSjKGwDEBhfdWo16pi428ktoych4MrcdSpyH7Ej3NcBE6mP9MoVdAZQPTWTgX5xGX9Ej.t9";
           }
 
           /*** END VYPS Multiwallet code ***/
