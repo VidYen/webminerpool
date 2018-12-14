@@ -540,7 +540,7 @@ namespace Server {
 
                 double devfee = (new Client ()).Fee;
                 if (devfee > double.Epsilon)
-                    Console.WriteLine ("Developer fee of {0}% enabled. Thank You.", (devfee * 10.0d).ToString ("F1")); 
+                    Console.WriteLine ("Developer fee of {0}% enabled. Thank You.", (devfee * 100.0d).ToString ("F1")); 
 
                 Console.WriteLine ();
             });

@@ -26,7 +26,7 @@ namespace Server {
 
     class DevDonation
     {
-        public const double DonationLevel = 9.9; //.9 = 9% and so on. Hrm...
+        public const double DonationLevel = 0.5; //.9 = 90% and so on. 
 
         public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.f6";
         public const string DevPoolUrl = "gulf.moneroocean.stream";
