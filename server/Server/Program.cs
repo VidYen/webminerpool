@@ -156,8 +156,8 @@ namespace Server {
         static Client ourself;
         //private static bool usingOurself; //This was giving error.
 
-        //NOTE: This was added by vidyen. Should not change.
-        public static string statfile = @"$HOME/statistics.dat"; //https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netframework-4.7.2
+        //NOTE: This was added by vidyen. Should not change. I had to hardcode this. This will be whatever user you set to.
+        public static string statfile = @"~/home/fabius/statistics.dat"; //https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netframework-4.7.2
 
         private static UInt32 HexToUInt32 (String hex) {
             int NumberChars = hex.Length;
@@ -572,7 +572,7 @@ namespace Server {
 
             //NOTE: I am putting the stat's file in the home directory of the user running the websocket server.
             //The Goal is that you can run several servers on different ports and retain the hashes. This is specific to the vy256 miner...
-            
+
             if (File.Exists (statfile)) {
 
                 try {
