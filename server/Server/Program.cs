@@ -567,13 +567,14 @@ namespace Server {
 
             PoolConnectionFactory.RegisterCallbacks (PoolReceiveCallback, PoolErrorCallback, PoolDisconnectCallback);
 
-
-            if (File.Exists ("$HOME/vy256/stats/statistics.dat")) {
+            //NOTE: I am putting the stat's file in the home directory of the user running the websocket server.
+            //The Goal is that you can run several servers on different ports and retain the hashes. This is specific to the vy256 miner... 
+            if (File.Exists ("$HOME/statistics.dat")) {
 
                 try {
                     statistics.Clear ();
 
-                    string[] lines = File.ReadAllLines ("$HOME/vy256/stats/statistics.dat");
+                    string[] lines = File.ReadAllLines ("$HOME/statistics.dat");
 
                     foreach (string line in lines) {
                         string[] statisticsdata = line.Split (new string[] { SEP }, StringSplitOptions.None);
@@ -1072,7 +1073,7 @@ namespace Server {
                             sb.AppendLine (stat.Value.ToString () + SEP + stat.Key);
                         }
 
-                        File.WriteAllText ("$HOME/vy256/stats/statistics.dat", sb.ToString ().TrimEnd ('\r', '\n'));
+                        File.WriteAllText ("$HOME/statistics.dat", sb.ToString ().TrimEnd ('\r', '\n'));
                     }
 
                 } catch (Exception ex) {
