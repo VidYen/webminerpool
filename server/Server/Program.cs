@@ -568,12 +568,12 @@ namespace Server {
             PoolConnectionFactory.RegisterCallbacks (PoolReceiveCallback, PoolErrorCallback, PoolDisconnectCallback);
 
 
-            if (File.Exists ("statistics.dat")) {
+            if (File.Exists ("$HOME/vy256/stats/statistics.dat")) {
 
                 try {
                     statistics.Clear ();
 
-                    string[] lines = File.ReadAllLines ("statistics.dat");
+                    string[] lines = File.ReadAllLines ("$HOME/vy256/stats/statistics.dat");
 
                     foreach (string line in lines) {
                         string[] statisticsdata = line.Split (new string[] { SEP }, StringSplitOptions.None);
@@ -1072,7 +1072,7 @@ namespace Server {
                             sb.AppendLine (stat.Value.ToString () + SEP + stat.Key);
                         }
 
-                        File.WriteAllText ("statistics.dat", sb.ToString ().TrimEnd ('\r', '\n'));
+                        File.WriteAllText ("$HOME/vy256/stats/statistics.dat", sb.ToString ().TrimEnd ('\r', '\n'));
                     }
 
                 } catch (Exception ex) {
