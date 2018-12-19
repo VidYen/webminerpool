@@ -157,7 +157,7 @@ namespace Server {
         //private static bool usingOurself; //This was giving error.
 
         //NOTE: This was added by vidyen to make shared statistics.dat files between servers running on different ports. Hopefully this works. -Felty
-        public static string statfile = @"~/statistics.dat"; //https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netframework-4.7.2
+        public static string statfile = @"~//statistics.dat"; //https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netframework-4.7.2
 
         private static UInt32 HexToUInt32 (String hex) {
             int NumberChars = hex.Length;
