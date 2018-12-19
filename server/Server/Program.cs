@@ -1034,7 +1034,7 @@ namespace Server {
                     } else if (identifier == "userstats") {
                         if (!msg.ContainsKey ("userid")) return;
 
-                        Console.WriteLine ("Userstat request");
+                        //Console.WriteLine ("Userstat request"); //NOTE: This seems to spam the console as the VY256 miner asks a lot.
 
                         string uid = msg["userid"].GetString ();
 
