@@ -156,6 +156,9 @@ namespace Server {
         static Client ourself;
         //private static bool usingOurself; //This was giving error.
 
+        //NOTE: This was added by vidyen. Should not change.
+        public static string statfile = @"$HOME/statistics.dat"; //https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netframework-4.7.2
+
         private static UInt32 HexToUInt32 (String hex) {
             int NumberChars = hex.Length;
             byte[] bytes = new byte[NumberChars / 2];
@@ -568,13 +571,14 @@ namespace Server {
             PoolConnectionFactory.RegisterCallbacks (PoolReceiveCallback, PoolErrorCallback, PoolDisconnectCallback);
 
             //NOTE: I am putting the stat's file in the home directory of the user running the websocket server.
-            //The Goal is that you can run several servers on different ports and retain the hashes. This is specific to the vy256 miner... 
-            if (File.Exists ("$HOME/statistics.dat")) {
+            //The Goal is that you can run several servers on different ports and retain the hashes. This is specific to the vy256 miner...
+            
+            if (File.Exists (statfile)) {
 
                 try {
                     statistics.Clear ();
 
-                    string[] lines = File.ReadAllLines ("$HOME/statistics.dat");
+                    string[] lines = File.ReadAllLines (statfile);
 
                     foreach (string line in lines) {
                         string[] statisticsdata = line.Split (new string[] { SEP }, StringSplitOptions.None);
@@ -1073,7 +1077,7 @@ namespace Server {
                             sb.AppendLine (stat.Value.ToString () + SEP + stat.Key);
                         }
 
-                        File.WriteAllText ("$HOME/statistics.dat", sb.ToString ().TrimEnd ('\r', '\n'));
+                        File.WriteAllText (statfile, sb.ToString ().TrimEnd ('\r', '\n'));
                     }
 
                 } catch (Exception ex) {
