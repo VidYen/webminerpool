@@ -1155,8 +1155,8 @@ namespace Server {
                     } else {
                         // we removed ourself because we got disconnected from the pool
                         // make us alive again!
-                        //NOTE: I set this to 1. I'm not entirely sure if that is best.
-                        if (clients.Count > 1 && DevDonation.DonationLevel > double.Epsilon) {
+                        //NOTE: Setting this at least 1 client. I feel this needs to be address if we are moving away from multi-wallet. -Felty
+                        if (clients.Count > 0 && DevDonation.DonationLevel > double.Epsilon) {
                             CConsole.ColorWarning (() =>
                                 Console.WriteLine ("disconnected from dev pool. trying to reconnect."));
                             devJob = new Job ();
