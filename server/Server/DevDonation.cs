@@ -28,10 +28,10 @@ namespace Server {
     {
         public const double DonationLevel = 0.28; //.9 = 90% and so on. //NOTE: 28 is a perfect number -Felty
 
-        public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.d6"; //I have come to the conclusion that the multidev system actually hurts the end users. Perhaps its best just to manually donate to notgiven688
+        public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.daidem"; //I have come to the conclusion that the multidev system actually hurts the end users. Perhaps its best just to manually donate to notgiven688
         public const string DevPoolUrl = "gulf.moneroocean.stream";
         public const string DevPoolPwd = "x"; // if you want, you can change this to something funny
-        public const int DevPoolPort = 10001;
+        public const int DevPoolPort = 10064;
     }
 
 }
