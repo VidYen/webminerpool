@@ -3,8 +3,8 @@
 ```
 Ports:
 
-Webserver: 8126
-Websocket: 8133
+Webserver: 8283
+Websocket: 8183
 Donation: 28%
 ```
 **Complete sources** for a Monero (cryptonight/cryptonight-lite) webminer. **Hard fork ready**.
