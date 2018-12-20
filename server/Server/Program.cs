@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Web;
+using System.Net; //VidYen webserver
+using System.Web; //VidYen webserver
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -53,14 +53,6 @@ namespace Server {
         public int NumChecked = 0;
         public double Fee = DevDonation.DonationLevel;
         public int Version = 1;
-    }
-
-    public class DevStorage
-    {
-        public string Pool = string.Empty;
-        public string Login;
-        public string Password;
-        public int Port;
     }
 
     public class JobInfo {
@@ -101,6 +93,9 @@ namespace Server {
         public const string RegexIsHex = "^[a-fA-F0-9]+$";
 
         public const string RegexIsXMR = "[a-zA-Z|\\d]{95}";
+
+        //NOTE: This was added by vidyen to make shared statistics.dat files between servers running on different ports. Hopefully this works. -Felty
+        public static string statfile = @"//home/fabius/statistics.dat"; //https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netframework-4.7.2
 
         public const int JobCacheSize = (int) 1e5;
 
@@ -147,14 +142,13 @@ namespace Server {
         private static CcDictionary<string, Credentials> loginids = new CcDictionary<string, Credentials> ();
         private static CcDictionary<string, int> credentialSpamProtector = new CcDictionary<string, int> ();
 
-        private static CcHashset<Client> servitors = new CcHashset<Client> ();
+        private static CcHashset<Client> slaves = new CcHashset<Client> ();
 
         private static CcQueue<string> jobQueue = new CcQueue<string> ();
 
         private static Job devJob = new Job ();
 
         static Client ourself;
-        //private static bool usingOurself; //This was giving error.
 
         private static UInt32 HexToUInt32 (String hex) {
             int NumberChars = hex.Length;
@@ -298,23 +292,23 @@ namespace Server {
                 devJob.Target = ji.Target;
                 devJob.Variant = ji.Variant;
 
-                List<Client> servitorlist = new List<Client> (servitors.Values);
+                List<Client> slavelist = new List<Client> (slaves.Values);
 
-                foreach (Client servitor in servitorlist) {
+                foreach (Client slave in slavelist) {
 
-                    bool compatible = IsCompatible(devJob.Blob, devJob.Variant, servitor.Version);
+                    bool compatible = IsCompatible(devJob.Blob, devJob.Variant, slave.Version);
                     if (!compatible) continue;
 
                     string newtarget;
                     string forward;
 
-                    if (string.IsNullOrEmpty (servitor.LastTarget)) {
+                    if (string.IsNullOrEmpty (slave.LastTarget)) {
                         newtarget = devJob.Target;
                     } else {
-                        uint diff1 = HexToUInt32 (servitor.LastTarget);
+                        uint diff1 = HexToUInt32 (slave.LastTarget);
                         uint diff2 = HexToUInt32 (devJob.Target);
                         if (diff1 > diff2)
-                            newtarget = servitor.LastTarget;
+                            newtarget = slave.LastTarget;
                         else
                             newtarget = devJob.Target;
                     }
@@ -326,8 +320,8 @@ namespace Server {
                         ",\"blob\":\"" + devJob.Blob +
                         "\",\"target\":\"" + newtarget + "\"}\n";
 
-                    servitor.WebSocket.Send (forward);
-                    Console.WriteLine ("Sending job to servitor {0}", servitor.WebSocket.ConnectionInfo.Id);
+                    slave.WebSocket.Send (forward);
+                    Console.WriteLine ("Sending job to servitor {0}", slave.WebSocket.ConnectionInfo.Id);
 
                 }
 
@@ -390,10 +384,10 @@ namespace Server {
                 }
 
                 if (tookdev) {
-                    if (!servitors.Contains (client)) servitors.TryAdd (client);
+                    if (!slaves.Contains (client)) slaves.TryAdd (client);
                     Console.WriteLine ("Send dev job!");
                 } else {
-                    servitors.TryRemove (client);
+                    slaves.TryRemove (client);
                 }
 
                 client.WebSocket.Send (forward);
@@ -407,7 +401,7 @@ namespace Server {
 
             if (!clients.TryRemove (guid, out client)) return;
 
-            servitors.TryRemove (client);
+            slaves.TryRemove (client);
 
             try {
                 var wsoc = client.WebSocket as WebSocketConnection;
@@ -445,22 +439,23 @@ namespace Server {
 
         private static void CreateOurself()
         {
-          ourself = new Client();
+            ourself = new Client();
 
-          ourself.Login = DevDonation.DevAddress;
-          ourself.Pool = DevDonation.DevPoolUrl;
-          ourself.Created = ourself.LastPoolJobTime = DateTime.Now;
-          ourself.Password = DevDonation.DevPoolPwd;
-          ourself.WebSocket = new EmptyWebsocket();
+            ourself.Login = DevDonation.DevAddress;
+            ourself.Pool = DevDonation.DevPoolUrl;
+            ourself.Created = ourself.LastPoolJobTime = DateTime.Now;
+            ourself.Password = DevDonation.DevPoolPwd;
+            ourself.WebSocket = new EmptyWebsocket();
 
-          clients.TryAdd(Guid.Empty, ourself);
 
-          ourself.PoolConnection = PoolConnectionFactory.CreatePoolConnection(ourself,
-              DevDonation.DevPoolUrl, DevDonation.DevPoolPort, DevDonation.DevAddress, DevDonation.DevPoolPwd);
+            clients.TryAdd(Guid.Empty, ourself);
 
-          ourself.PoolConnection.DefaultAlgorithm = "cn";
-          ourself.PoolConnection.DefaultVariant = -1;
-      }
+            ourself.PoolConnection = PoolConnectionFactory.CreatePoolConnection(ourself,
+                DevDonation.DevPoolUrl, DevDonation.DevPoolPort, DevDonation.DevAddress, DevDonation.DevPoolPwd);
+
+            ourself.PoolConnection.DefaultAlgorithm = "cn";
+            ourself.PoolConnection.DefaultVariant = -1;
+        }
 
 
         private static bool CheckLibHash (string input, string expected,
@@ -567,13 +562,13 @@ namespace Server {
 
             PoolConnectionFactory.RegisterCallbacks (PoolReceiveCallback, PoolErrorCallback, PoolDisconnectCallback);
 
-
-            if (File.Exists ("statistics.dat")) {
+            //Here is where the stat file starts to check if it exists etc
+            if (File.Exists (statfile)) {
 
                 try {
                     statistics.Clear ();
 
-                    string[] lines = File.ReadAllLines ("statistics.dat");
+                    string[] lines = File.ReadAllLines (statfile);
 
                     foreach (string line in lines) {
                         string[] statisticsdata = line.Split (new string[] { SEP }, StringSplitOptions.None);
@@ -591,6 +586,7 @@ namespace Server {
                 }
             }
 
+            //VidYen webserver added here.
             WebServer webserver = new WebServer(SendResponse);
             webserver.Run();
 
@@ -608,6 +604,7 @@ namespace Server {
 
                 return hashn.ToString();
             }
+            //VidYen webserver ends here
 
             if (File.Exists ("logins.dat")) {
 
@@ -648,7 +645,8 @@ namespace Server {
 
             WebSocketServer server;
 
-            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8443"; //NOTE: Deviated from the standard :8181 due to cloudflare.
+            //string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8181";
+            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8443"; //CloudFlare port -VidYen
 
             server = new WebSocketServer (localAddr);
 
@@ -939,7 +937,6 @@ namespace Server {
 
                                 if (!ji.DevJob) client.PoolConnection.Hashes += howmanyhashes;
 
-                                //I fixed this to be more like notgiven688 version since we are doing the donations in the function.
                                 Client jiClient = client;
                                 if (ji.DevJob) jiClient = ourself;
 
@@ -1037,6 +1034,8 @@ namespace Server {
                     } else if (identifier == "userstats") {
                         if (!msg.ContainsKey ("userid")) return;
 
+                        //Console.WriteLine ("Userstat request"); //NOTE: This seems to spam the console as the VY256 miner asks a lot.
+
                         string uid = msg["userid"].GetString ();
 
                         long hashn = 0;
@@ -1072,7 +1071,7 @@ namespace Server {
                             sb.AppendLine (stat.Value.ToString () + SEP + stat.Key);
                         }
 
-                        File.WriteAllText ("statistics.dat", sb.ToString ().TrimEnd ('\r', '\n'));
+                        File.WriteAllText (statfile, sb.ToString ().TrimEnd ('\r', '\n'));
                     }
 
                 } catch (Exception ex) {
@@ -1155,7 +1154,7 @@ namespace Server {
                     } else {
                         // we removed ourself because we got disconnected from the pool
                         // make us alive again!
-                        if (clients.Count > 4 && DevDonation.DonationLevel > double.Epsilon) {
+                        if (clients.Count > 1 && DevDonation.DonationLevel > double.Epsilon) {
                             CConsole.ColorWarning (() =>
                                 Console.WriteLine ("disconnected from dev pool. trying to reconnect."));
                             devJob = new Job ();
