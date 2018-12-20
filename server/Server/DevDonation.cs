@@ -26,9 +26,9 @@ namespace Server {
 
     class DevDonation
     {
-        public const double DonationLevel = 0.10; //.9 = 90% and so on. //NOTE: Back to 10. Testing at 28 gets a lot of hashes.
+        public const double DonationLevel = 0.28; //.9 = 90% and so on. //NOTE: This is Eidolon
 
-        public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.vesalius"; //I have come to the conclusion that the multidev system actually hurts the end users. Perhaps its best just to manually donate to notgiven688
+        public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.eidolon"; //I have come to the conclusion that the multidev system actually hurts the end users. Perhaps its best just to manually donate to notgiven688
         public const string DevPoolUrl = "gulf.moneroocean.stream";
         public const string DevPoolPwd = "x"; // if you want, you can change this to something funny
         public const int DevPoolPort = 10256; //10064 for daidem        
