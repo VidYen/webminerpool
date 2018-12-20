@@ -1,10 +1,12 @@
 # VYPS webminerpool - Eidolon Branch
 
+```
 Ports:
 
 Webserver: 8080
 Websocket: 8181
-
+Donation: 28%
+```
 **Complete sources** for a Monero (cryptonight/cryptonight-lite) webminer. **Hard fork ready**.
 
 **NOTE:** You can get this working on CentOS, but Debian was a lot easier for everyone involved.
