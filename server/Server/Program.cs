@@ -646,7 +646,7 @@ namespace Server {
             WebSocketServer server;
 
             //string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8181";
-            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8443"; //CloudFlare port -VidYen
+            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8133"; //Eidolon port -VidYen
 
             server = new WebSocketServer (localAddr);
 
