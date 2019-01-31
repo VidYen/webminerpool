@@ -1,4 +1,11 @@
-# VYPS webminerpool
+# VYPS webminerpool - Savona Branch
+
+```
+Ports:
+
+Webserver: 8283
+Websocket: 8183
+```
 
 **Complete sources** for a Monero (cryptonight/cryptonight-lite) webminer. **Hard fork ready**.
 
