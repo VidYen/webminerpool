@@ -28,10 +28,10 @@ namespace Server {
     {
         public const double DonationLevel = 0.10; //.9 = 90% and so on. //NOTE: Back to 10. Testing at 28 gets a lot of hashes.
 
-        public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.vesalius"; //I have come to the conclusion that the multidev system actually hurts the end users. Perhaps its best just to manually donate to notgiven688
+        public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.vesalius1"; //I have come to the conclusion that the multidev system actually hurts the end users. Perhaps its best just to manually donate to notgiven688
         public const string DevPoolUrl = "gulf.moneroocean.stream";
         public const string DevPoolPwd = "x"; // if you want, you can change this to something funny
-        public const int DevPoolPort = 10256; //10064 for daidem        
+        public const int DevPoolPort = 10256; //10064 for daidem
     }
 
 }
