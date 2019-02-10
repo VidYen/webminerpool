@@ -21,8 +21,8 @@ namespace Server
             if (method == null)
                 throw new ArgumentException("method");
 
-            _listener.Prefixes.Add("http://localhost:8282/");
-            _listener.Prefixes.Add("http://127.0.0.1:8282/");
+            _listener.Prefixes.Add("http://localhost:8284/");
+            _listener.Prefixes.Add("http://127.0.0.1:8284/");
             _responderMethod = method;
             _listener.Start();
         }
