@@ -1,4 +1,12 @@
-# VYPS webminerpool
+# VYPS webminerpool Clarion Branch
+
+
+```
+Ports:
+
+Webserver: 8284
+Websocket: 8184
+```
 
 **Complete sources** for a Monero (cryptonight/cryptonight-lite) webminer. **Hard fork ready**.
 
