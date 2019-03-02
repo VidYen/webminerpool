@@ -4,8 +4,8 @@
 ```
 Ports:
 
-Webserver: 8284
-Websocket: 8184
+Webserver: 8286
+Websocket: 8186
 ```
 
 **Complete sources** for a Monero (cryptonight/cryptonight-lite) webminer. **Hard fork ready**.
