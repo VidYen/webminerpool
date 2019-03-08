@@ -1,8 +1,21 @@
-# VYPS webminerpool
+# webminerpool
 
-**Complete sources** for a Monero (cryptonight/cryptonight-lite) webminer. **Hard fork ready**.
+**Complete sources** for a Monero (cryptonight and variants) webminer. **Hard fork ready**.
 
-**NOTE:** You can get this working on CentOS, but Debian was a lot easier for everyone involved.
+## Savona branch
+
+```
+Ports:
+
+Webserver: 8283 (no longer used)
+Websocket: 8443
+```
+
+# Sever Donations
+
+```
+8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.vesalius
+```
 
 ###
 _The server_ is written in **C#**, **optionally calling C**-routines to check hashes calculated by the clients. It acts as a proxy server for common pools.
@@ -13,32 +26,57 @@ _The client_ runs in the browser using javascript and webassembly.
 
 Thanks to [nierdz](https://github.com/notgiven688/webminerpool/pull/62) there is a **docker** file available. See below.
 
-# What is new?
+# Will the hardfork (<span style="color:red">March 2019</span>) be supported?
 
-- **December 6, 2018**
-	- Modded VYPS WMP fork to fix donation system. (reversion to old method as was suggested that people using this know how to compile so don't need json)
+Yes. Update to the current Master branch and you should be fine. Much work was put into optimizing the miner
+once again.
 
-- **October 18, 2018**
-	- Added cryptonight v2. Hard fork ready! (client-side / server-side).
+Unfortunately the newest version of cryptonight, cn/r (cnv4), does perform poorly on the browser. To partly compensate for this I added cn-pico/trtl and cn-half. If you mine to a pool
+which allows autoswitching algorithms (at the moment [moneroocean.stream](https://moneroocean.stream)) webminerpool will automatically
+switch to an algorithm which is most profitable at the moment.
 
-- **August 8, 2018**
-	- Hash tracking for use with [VYPS plugin](https://wordpress.org/plugins/vidyen-point-system-vyps/)
+## Update notes: It is beneficial to first update your clients (step_A) to the newest mining script (Version 7, the version number can be found in the "handshake-data" within the source code). Wait a few days till your user base followed (because of browser caching) and then update to the newest server version (step_B). This is recommended because of the possibility that the new server negotiates a mining algorithm with the pool, which is not supported by an old client (and therefore is not forwarded by the server).
+
+## step_A and step_B have to be performed before March 9th!
+
+# Currently supported algorithms
+
+| #  |  xmrig short notation | webminerpool internal | description |
+| -- | --------------| --------------------------------- | ------------------------------------------------ |
+| 1  | cn            | algo="cn", variant=-1             | autodetect cryptonight variant (block.major - 6) |
+| 2  | cn/0          | algo="cn", variant=0              | original cryptonight                             |
+| 3  | cn/1          | algo="cn", variant=1              | also known as monero7 and cryptonight v7         |
+| 4  | cn/2          | algo="cn", variant=2 or 3         | cryptonight variant 2                            |
+| 5  | cn/r          | algo="cn", variant=4              | cryptonight variant 4 also known as cryptonightR |
+| 6  | cn-lite       | algo="cn-lite", variant=-1        | same as #1 with memory/2, iterations/2           |
+| 7  | cn-lite/0     | algo="cn-lite", variant=0         | same as #2 with memory/2, iterations/2           |
+| 8  | cn-lite/1     | algo="cn-lite", variant=1         | same as #3 with memory/2, iterations/2           |
+| 9  | cn-pico/trtl  | algo="cn-pico", variant=2 or 3    | same as #4 with memory/8, iterations/8           |
+| 10 | cn-half       | algo="cn-half", variant=2 or 3    | same as #4 with memory/1, iterations/2           |
+
+ # What is new?
+
+- **March 1, 2019**
+	- Added cryptonight v4. Hard fork ready! Added support for cn/half and cn-pico/trtl. Added support for auto-algo switching. (**client-side** / **server-side**)
+
+- **September 27, 2018**
+	- Added cryptonight v2. Hard fork ready! (**client-side** / **server-side**)
 
 - **June 15, 2018**
-	- Support for blocks with more than 2^8 transactions. (**client-side** / **server-side**).
+	- Support for blocks with more than 2^8 transactions. (**client-side** / **server-side**)
 
 - **May 21, 2018**
-	- Support for multiple open tabs. Only one tab is constantly mining if several tabs/browser windows are open. (**client-side**).
+	- Support for multiple open tabs. Only one tab is constantly mining if several tabs/browser windows are open. (**client-side**)
 
 - **May 6, 2018**
-	- Check if webasm is available. Please update the script. (**client-side**).
+	- Check if webasm is available. Please update the script. (**client-side**)
 
 - **May 5, 2018**
 	- Support for multiple websocket servers in the client script (load-distribution).
 
 - **April 26, 2018**
-	- A further improvement to fully support the [extended stratum protocol](https://github.com/xmrig/xmrig-proxy/blob/dev/doc/STRATUM_EXT.md#mining-algorithm-negotiation)  (**server-side**).
-	- A simple json config-file holding all available pools (**server-side**).
+	- A further improvement to fully support the [extended stratum protocol](https://github.com/xmrig/xmrig-proxy/blob/dev/doc/STRATUM_EXT.md#mining-algorithm-negotiation).  (**server-side**)
+	- A simple json config-file holding all available pools. (**server-side**)
 
 - **April 22, 2018**
 	- All cryptonight and cryptonight-light based coins are supported in a single miner. [Stratum extension](https://github.com/xmrig/xmrig-proxy/blob/dev/doc/STRATUM_EXT.md#mining-algorithm-negotiation) were implemented: The server now takes pool suggestions (algorithm and variant) into account. Defaults can be specified for each pool - that makes it possible to mine coins like Stellite, Turtlecoin,.. (**client/server-side**)
@@ -134,67 +172,21 @@ should run the server.
  Without a **SSL certificate** the server will open a regular websocket (ws://0.0.0.0:8181). To use websocket secure (ws**s**://0.0.0.0:8181) you should place *certificate.pfx* (a  pkcs12 file) into the server directory. The default password which the server uses to load the certificate is "miner". To create a pkcs12 file from regular certificates, e.g. from [*Let's Encrypt*](https://letsencrypt.org/), use the command
 
 ```bash
-openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
-```
-
-For post NGINX cert renewals with certbot use the command
-
-```
-sudo certbot certonly --authenticator standalone --pre-hook "nginx -s stop" --post-hook "nginx"
+sudo openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
 ```
 
 The server should autodetect the certificate on startup and create a secure websocket.
+
+For cert renewals use the following:
+
+```bash
+sudo certbot certonly --authenticator standalone --pre-hook "nginx -s stop" --post-hook "nginx"
+```
 
 **Attention:** Most linux based systems have a (low) fixed limit of
 available file-descriptors configured ("ulimit"). This can cause an
 unwanted upper limit for the users who can connect (typical 1000). You
 should change this limit if you want to have more connections.
-
-### Nginx Server
-You need to have a proxy server from local to public in order for clients to access the http server.
-You can use an Nginx server to do this.
-
-First install nginx
-
-```
-sudo yum install epel-release
-sudo yum install nginx
-```
-
-Then edit the site config.
-
-```
-server {
-    listen 42198;
-    server_name example.com;
-
-    location / {
-        proxy_pass http://127.0.0.1:8282;
-    }
-}
-```
-
-If you want a custom 502 error page for if the webminerpool server is down or crashed add the following config in the server section:
-
-```
-error_page 502 /502.html;
-location = /502.html {
-	root  /location/of/502/file;
-}
-  ```
-
-### In case server reboot
-
-```
-sudo systemctl start nginx
-```
-
-Or...
-
-```
-cd /etc/nginx
-sudo nginx -s reload
-```
 
 ### hash_cn
 
@@ -205,7 +197,7 @@ The cryptonight hashing functions in C-code. With simple Makefiles (use the "mak
 Find the original pull request with instructions by nierdz [here](https://github.com/notgiven688/webminerpool/pull/62).
 
 Added Dockerfile and entrypoint.sh.
-Inside entrypoint.sh, a certificate is installed so you need to provide a domain name during docker run. The certificate is automatically renewed using a cronjob.
+Inside entrypoint.sh, if `$DOMAIN` is provided, a certificate is registered and packed in pkcs12 format to be used with server.exe.
 
 ```bash
 cd webminerpool
@@ -217,7 +209,7 @@ To run it:
 ```bash
 docker run -d -p 80:80 -p 8181:8181 -e DOMAIN=mydomain.com webminerpool
 ```
-You absolutely need to set a domain name.
+
 The 80:80 bind is used to obtain a certificate.
 The 8181:8181 bind is used for server itself.
 
@@ -227,54 +219,48 @@ If you want to bind these ports to a specific IP, you can do this:
 docker run -d -p xx.xx.xx.xx:80:80 -p xx.xx.xx.xx:8181:8181 -e DOMAIN=mydomain.com webminerpool
 ```
 
-# Other installation help
-
-You can look at centos7.md and debian9.md for installation walk through.
-
-NOTE: CentOS is a pain so I'd recommend using Debian. Yeah. I know if you use CPanel you have to use CentOS, but you are not required to have the pool and the CPanel on the same server. That said, it can work on CentOS, but if it does not for you, just save yourself some grief and switch to Debian.
-
-# VYPS Multiwallet
-
-By default if you use the VidYen fork, there are 3 wallets. To make it easier on you, just modified the DevDonation.cs. However, if you are forking a fork of the VidYen miner and still want to donate to the person after us but before you, you can add on to this lines:
+You can even use docker-compose, here is a sample snippet:
 
 ```
-Random random = new Random();
-if (random.NextDouble() > 0.90)
-{
-	CreateOurself();
-	jiClient = ourself;
-}
-
-//This is the VidYen address
-if (random.NextDouble() > 0.93)
-{
-		CreateOurself();
-		jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
-}
-
-//This is notgiven688's address
-if (random.NextDouble() > 0.97)
-{
-		CreateOurself();
-		jiClient.Login = "49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU";
-}
-
-//This is whoever comes after you
-if (random.NextDouble() > 0.99)
-{
-		CreateOurself();
-		jiClient.Login = "(XMR Address here)";
-}
-
+webminer:
+  container_name: webminer
+  image: webminer:1.0
+  build:
+    context: ./webminerpool
+    args:
+      - DONATION_LEVEL=${WEBMINER_DONATION_LEVEL}
+  restart: always
+  ports:
+    - ${WEBMINER_IP}:80:80
+    - ${WEBMINER_IP}:8181:8181
+  environment:
+    DOMAIN: ${WEBMINER_DOMAIN}
+  networks:
+    - my-network
 ```
 
+To use this snippet, you need to define `$WEBMINER_DONATION_LEVEL`, `$WEBMINER_DOMAIN` and `$WEBMINER_IP` in a `.env` file.
 
-# notgiven688 Developer Donations
+# Developer Donations
 
-- BTC - 175jHD6ErDhZHoW4u54q5mr98L9KSgm56D
-- XMR - 49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU
-- AEON - WmtUFkPrboCKzL5iZhia4iNHKw9UmUXzGgbm5Uo3HPYwWcsY1JTyJ2n335gYiejNysLEs1G2JZxEm3uXUX93ArrV1yrXDyfPH
+contact: webminerpool@protonmail.com
 
-# VidYen Developer Donations
+By default a server-side 3% dev-donation is configured. Leaving this fee at the current level is highly appreciated. If you want
+to turn it off or just find the content of this repository helpful consider a one time donation, the addresses are as follows:
 
-- XMR - 48Vi6kadiTtTyemhzigSDrZDKcH6trUTA7zXzwamziSmAKWYyBpacMjWbwaVe4vUMveKAzAiA4j8xgUi29TpKXpm3wL5K5a
+
+```
+BTC - 175jHD6ErDhZHoW4u54q5mr98L9KSgm56D
+XMR - 49kkH7rdoKyFsb1kYPKjCYiR2xy1XdnJNAY1e7XerwQFb57XQaRP7Npfk5xm1MezGn2yRBz6FWtGCFVKnzNTwSGJ3ZrLtHU
+AEON - WmtUFkPrboCKzL5iZhia4iNHKw9UmUXzGgbm5Uo3HPYwWcsY1JTyJ2n335gYiejNysLEs1G2JZxEm3uXUX93ArrV1yrXDyfPH
+```
+
+# VidYen Donatons
+
+contact: [https://vidyen.com/contact](https://vidyen.com/contact)
+discord: [https://discord.gg/6svN5sS0(https://discord.gg/6svN5sS)
+
+```
+BTC - 3HMD18bKXZKEXy91QCMdsvt7kwPEQvP2Zm
+XMR - 8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb
+```
