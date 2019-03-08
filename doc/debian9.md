@@ -1,4 +1,4 @@
-Debian Server Setup
+## Debian Server Setup Instructions
 
 1. Check for updates:``sudo apt-get update``
 2. Do the updates: ``sudo apt upgrade``
@@ -24,22 +24,24 @@ libicu57 (for 17.x)
 libicu60 (for 18.x)
 ```
 
-Certbot instructions
+## Certbot instructions
 1. Run: ``sudo certbot certonly --authenticator standalone --pre-hook "nginx -s stop" --post-hook "nginx"``
 2. NOTE: You need to own the domain that you are certining (or IP etc but the cert will only work for it).
 3. I copy the files out of the root area to make it easier to create the pfx file and move it around (``sudo su`` and then back again)
 3. As you should already have openssl installed: ``openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem``
 4 Follow onscreen instructions and set export password as: ``miner``
 
-Install the miner
+## Install the miner
 1. Install the repo ``git clone https://github.com/VidYen/webminerpool.git``
 2. Build the repo
 
-Optional
+## Optional
 1. Install fuse: ``sudo apt-get install fuse``
 
-Setup Nginx
+### Setup Nginx (also optional)
 1. Add the following in the http section of the `/etc/nginx/nginx.conf` file:
+
+These have been made mostly redundant with the JS of VYPS now switching servers rather than the php checking
 
 To do pure port 80 talking:
 

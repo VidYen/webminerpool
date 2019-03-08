@@ -1,6 +1,6 @@
-// The MIT License (MIT)
+﻿// The MIT License (MIT)
 
-// Copyright (c) 2018 - the webminerpool developer
+// Copyright (c) 2018-2019 - the webminerpool developer
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the "Software"), to deal in
@@ -19,19 +19,21 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// NOTE: This donation spot is for an easy place for anyone who wished to fork and run their own server
-// Not Given and VidYen's Address are in Program.cs and can be modified there if you wish to add a 3rd or 4th donation wall in the fork chain
+namespace Server
+{
 
-namespace Server {
-
-    class DevDonation
+    public static class DevDonation
     {
-        public const double DonationLevel = 0.10; //.9 = 90% and so on. //NOTE: Back to 10. Testing at 28 gets a lot of hashes.
 
-        public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.daidem"; //I have come to the conclusion that the multidev system actually hurts the end users. Perhaps its best just to manually donate to notgiven688
+        // by default a 3% dev fee is submitted to the following address.
+        // thank you for leaving this in.
+        public const double DonationLevel = 0.03;
+        public const string DevAddress = "8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.daidem";
         public const string DevPoolUrl = "gulf.moneroocean.stream";
         public const string DevPoolPwd = "x"; // if you want, you can change this to something funny
         public const int DevPoolPort = 10064;
+
     }
+
 
 }

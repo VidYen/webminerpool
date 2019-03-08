@@ -1,3 +1,5 @@
+# CentOS Install Instructions
+
 File in progress on how to install on CentOS on Google Cloud platform
 1. sudo yum update
 2. sudo yum install git
@@ -15,7 +17,7 @@ Fix the damn ports
 6. sudo systemctl status nginx.service
 7. setsebool -P httpd_can_network_connect true (this allows httpd to talk with local)
 
-Some useful commands and links 
+Some useful commands and links
 1. sudo semanage port -l | grep 8081
 2. https://certbot.eff.org/lets-encrypt/centosrhel7-nginx
 3. nginx: [emerg] getpwnam("nginx") failed in /etc/nginx/nginx.conf:5
