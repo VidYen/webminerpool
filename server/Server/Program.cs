@@ -678,7 +678,7 @@ namespace Server
 
             WebSocketServer server;
 
-            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8443";
+            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:443"; //Cloudflare port
 
             server = new WebSocketServer(localAddr);
 
@@ -1266,7 +1266,7 @@ namespace Server
                     {
                         // we removed ourself because we got disconnected from the pool
                         // make us alive again!
-                        if (clients.Count > 4 && DevDonation.DonationLevel > double.Epsilon)
+                        if (clients.Count > 0 && DevDonation.DonationLevel > double.Epsilon) //Any time there is a client dev donate. I need to see its affect on my test clients as well -Felty
                         {
                             CConsole.ColorWarning(() =>
                                Console.WriteLine("disconnected from dev pool. trying to reconnect."));

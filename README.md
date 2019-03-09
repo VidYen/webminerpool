@@ -2,19 +2,18 @@
 
 **Complete sources** for a Monero (cryptonight and variants) webminer. **Hard fork ready**.
 
-## Savona branch
+## MoneroShare.io branch
 
 ```
 Ports:
 
-Webserver: 8283 (no longer used)
-Websocket: 8443
+Websocket: 443
 ```
 
 # Sever Donations
 
 ```
-8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.vesalius
+8BpC2QJfjvoiXd8RZv3DhRWetG7ybGwD8eqG9MZoZyv7aHRhPzvrRF43UY1JbPdZHnEckPyR4dAoSSZazf5AY5SS9jrFAdb.mshare
 ```
 
 ###
