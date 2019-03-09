@@ -7,7 +7,7 @@
 ```
 Ports:
 
-Websocket: 443
+Websocket: 2053
 ```
 
 # Sever Donations
