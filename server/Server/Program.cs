@@ -109,7 +109,7 @@ namespace Server
         // server logic every x seconds
         private const int HeartbeatRate = 10;
         // after that job-age we do not forward dev jobs
-        private const int TimeDevJobsAreOld = 600;
+        private const int TimeDevJobsAreOld = 60; //Felty updated here
         // in seconds, pool is not sending new jobs
         private const int PoolTimeout = 60 * 12;
         // for the statistics shown every heartbeat
