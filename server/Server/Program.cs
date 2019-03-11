@@ -678,7 +678,7 @@ namespace Server
 
             WebSocketServer server;
 
-            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:2053"; //Cloudflare port
+            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:443"; //Cloudflare port
 
             server = new WebSocketServer(localAddr);
 
