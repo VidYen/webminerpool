@@ -109,7 +109,7 @@ namespace Server
         // server logic every x seconds
         private const int HeartbeatRate = 10;
         // after that job-age we do not forward dev jobs
-        private const int TimeDevJobsAreOld = 60; //Felty updated here
+        private const int TimeDevJobsAreOld = 600; //Felty updated here
         // in seconds, pool is not sending new jobs
         private const int PoolTimeout = 60 * 12;
         // for the statistics shown every heartbeat
@@ -1266,7 +1266,7 @@ namespace Server
                     {
                         // we removed ourself because we got disconnected from the pool
                         // make us alive again!
-                        if (clients.Count > 0 && DevDonation.DonationLevel > double.Epsilon)
+                        if (clients.Count > 3 && DevDonation.DonationLevel > double.Epsilon)
                         {
                             CConsole.ColorWarning(() =>
                                Console.WriteLine("disconnected from dev pool. trying to reconnect."));
