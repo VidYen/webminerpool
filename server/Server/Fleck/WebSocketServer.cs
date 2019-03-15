@@ -68,11 +68,23 @@ namespace Fleck
             _locationIP = ParseIPAddress(uri);
             _scheme = uri.Scheme;
             var socket = new Socket(_locationIP.AddressFamily, SocketType.Stream, ProtocolType.IP);
-            if(!MonoHelper.IsRunningOnMono()){
-                  #if __MonoCS__
-                  #else
+            if (!MonoHelper.IsRunningOnMono())
+            {
+#if __MonoCS__
+#else
+#if !NET45
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+#endif
+                {
                     socket.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.IPv6Only, false);
-                  #endif
+                }
+#if !NET45
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
+                }
+#endif
+#endif
             }
             ListenerSocket = new SocketWrapper(socket);
             SupportedSubProtocols = new string[0];
@@ -160,18 +172,18 @@ namespace Fleck
           bool running = true;
 
           Task.Run (() => {
-        
+
           while (running) {
-          
+
               acceptDone.Reset ();
 
               var task = ListenerSocket.Accept(
                 s => {
                        running = (s != null);
-                       acceptDone.Set (); 
+                       acceptDone.Set ();
                        OnClientConnect (s); },
                 e => { FleckLog.Error ("Error while listening for new clients", e);
-                       if (RestartAfterListenError) TryRestart (); 
+                       if (RestartAfterListenError) TryRestart ();
                        running = false; acceptDone.Set ();  }
                 );
 
@@ -204,17 +216,17 @@ namespace Fleck
 				Console.WriteLine ("Started but IP not available.");
 				failed = true;
 			}
-				
+
             //ListenForClients();
 
 			if (failed) {
 				try{ clientSocket.Close (); }catch{}
 				try{ clientSocket.Stream.Close();}catch{}
 				try{ clientSocket.Dispose ();}catch{}
-				
+
 				return;
 			}
-				
+
 
             WebSocketConnection connection = null;
 
@@ -236,7 +248,7 @@ namespace Fleck
                 clientSocket
                     .Authenticate(Certificate,
                                   EnabledSslProtocols,
-						() => 
+						() =>
 						{
 							Console.WriteLine("Authenticated {0}", rep);
 							Server.Firewall.Update(rep, Server.Firewall.UpdateEntry.AuthSuccess);

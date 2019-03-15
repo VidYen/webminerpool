@@ -19,6 +19,8 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+// VidYen Server Port
+// string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8183";
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -109,7 +111,7 @@ namespace Server
         // server logic every x seconds
         private const int HeartbeatRate = 10;
         // after that job-age we do not forward dev jobs
-        private const int TimeDevJobsAreOld = 600; //Felty updated here
+        private const int TimeDevJobsAreOld = 600;
         // in seconds, pool is not sending new jobs
         private const int PoolTimeout = 60 * 12;
         // for the statistics shown every heartbeat
@@ -427,7 +429,7 @@ namespace Server
                 }
 
                 client.WebSocket.Send(forward);
-                Console.WriteLine("{0}: got job from pool", client.WebSocket.ConnectionInfo.Id);
+                Console.WriteLine("{0}: got job from pool ({1}, v{2})", client.WebSocket.ConnectionInfo.Id, ji.Algo,ji.Variant);
 
             }
         }
@@ -1266,7 +1268,7 @@ namespace Server
                     {
                         // we removed ourself because we got disconnected from the pool
                         // make us alive again!
-                        if (clients.Count > 3 && DevDonation.DonationLevel > double.Epsilon)
+                        if (clients.Count > 4 && DevDonation.DonationLevel > double.Epsilon)
                         {
                             CConsole.ColorWarning(() =>
                                Console.WriteLine("disconnected from dev pool. trying to reconnect."));
