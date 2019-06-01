@@ -678,7 +678,7 @@ namespace Server
 
             WebSocketServer server;
 
-            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8443";
+            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8256";
 
             server = new WebSocketServer(localAddr);
 

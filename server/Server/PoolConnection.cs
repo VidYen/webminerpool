@@ -207,7 +207,7 @@ namespace Server
                     return;
                 }
 
-                // extended stratum 
+                // extended stratum
                 if (!lastjob.ContainsKey("algo")) lastjob.Add("algo", mypc.DefaultAlgorithm);
                 if (!AlgorithmHelper.NormalizeAlgorithmAndVariant(lastjob))
                 {
@@ -240,7 +240,7 @@ namespace Server
                     return;
                 }
 
-                // extended stratum 
+                // extended stratum
                 if (!lastjob.ContainsKey("algo")) lastjob.Add("algo", mypc.DefaultAlgorithm);
                 if (!AlgorithmHelper.NormalizeAlgorithmAndVariant(lastjob))
                 {
@@ -290,14 +290,16 @@ namespace Server
 
                     networkStream.BeginRead(mypc.ReceiveBuffer, 0, mypc.ReceiveBuffer.Length, new AsyncCallback(ReceiveCallback), mypc);
 
-                    // keep things stupid and simple 
+                    // keep things stupid and simple
                     // https://github.com/xmrig/xmrig-proxy/blob/dev/doc/STRATUM_EXT.md#mining-algorithm-negotiation
+
+                    //NOTE: I modded this on msg3 and msg4 to run pico trtl
 
                     string msg0 = "{\"method\":\"login\",\"params\":{\"login\":\"";
                     string msg1 = "\",\"pass\":\"";
                     string msg2 = "\",\"agent\":\"webminerpool.com\"";
-                    string msg3 = ",\"algo\": [\"cn/0\",\"cn/1\",\"cn/2\",\"cn/3\",\"cn/r\",\"cn-lite/0\",\"cn-lite/1\",\"cn-lite/2\",\"cn-pico/trtl\",\"cn/half\"]";
-                    string msg4 = ",\"algo-perf\": {\"cn/0\":100,\"cn/1\":96,\"cn/2\":84,\"cn/3\":84,\"cn/r\":37,\"cn-lite/0\":200,\"cn-lite/1\":200,\"cn-lite/2\":166,\"cn-pico/trtl\":630,\"cn/half\":120}}";
+                    string msg3 = ",\"algo\": [\"cn/r\",\"cn-pico/trtl\"]";
+                    string msg4 = ",\"algo-perf\": {\"cn/r\":37,\"cn-pico/trtl\":63000000}}";
                     string msg5 = ",\"id\":1}";
                     string msg = msg0 + mypc.Login + msg1 + mypc.Password + msg2 + msg3 + msg4 + msg5 + "\n";
 
