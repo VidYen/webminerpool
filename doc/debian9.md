@@ -135,3 +135,21 @@ Crontab setup for root:
 
 This will check that nginx is running and restart the service is not.
 And will check every 5 minutes if mono is running and reboot the server if not.
+
+For the servers themselves:
+```bash
+#! /bin/bash
+
+if lsof -Pi :2053 -sTCP:LISTEN -t >/dev/null ; then
+    cd /home/fabius/mshare/trazyn/webminerpool/server/Server/bin/Release_Server
+    current_date_time="`date +%Y%m%d%H%M%S`";    
+    echo "running" >> uptimecheck.log
+    echo $current_date_time >> uptimecheck.log
+else
+    cd /home/fabius/mshare/trazyn/webminerpool/server/Server/bin/Release_Server
+    current_date_time="`date +%Y%m%d%H%M%S`";    
+    echo "not running" >> uptimecheck.log
+    echo $current_date_time >> uptimecheck.log
+    mono server.exe > server.log
+fi
+```
