@@ -141,12 +141,12 @@ For the servers themselves:
 #! /bin/bash
 
 if lsof -Pi :2053 -sTCP:LISTEN -t >/dev/null ; then
-    cd /home/fabius/mshare/trazyn/webminerpool/server/Server/bin/Release_Server
+    cd /home/user/webminerpool/server/Server/bin/Release_Server
     current_date_time="`date +%Y%m%d%H%M%S`";    
     echo "running" >> uptimecheck.log
     echo $current_date_time >> uptimecheck.log
 else
-    cd /home/fabius/mshare/trazyn/webminerpool/server/Server/bin/Release_Server
+    cd /home/user/webminerpool/server/Server/bin/Release_Server
     current_date_time="`date +%Y%m%d%H%M%S`";    
     echo "not running" >> uptimecheck.log
     echo $current_date_time >> uptimecheck.log
