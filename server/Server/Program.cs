@@ -1,4 +1,4 @@
-﻿// The MIT License (MIT)
+// The MIT License (MIT)
 
 // Copyright (c) 2018-2019 - the webminerpool developer
 
@@ -678,7 +678,7 @@ namespace Server
 
             WebSocketServer server;
 
-            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:8256";
+            string localAddr = (certAvailable ? "wss://" : "ws://") + "0.0.0.0:2096";
 
             server = new WebSocketServer(localAddr);
 
