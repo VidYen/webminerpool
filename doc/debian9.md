@@ -1,5 +1,11 @@
 ## Debian Server Setup Instructions
 
+### 2019 update...
+
+``I have found that simply installing latest mono on deb 10 installed msbuild and I'm not sure why``
+
+[mono here](https://www.mono-project.com/download/stable/#download-lin-debian)
+
 1. Check for updates:``sudo apt-get update``
 2. Do the updates: ``sudo apt upgrade``
 3. Install [mono](https://www.mono-project.com/download/stable/#download-lin-debian) NOTE: You may have to install with ``mono-complete``
