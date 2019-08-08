@@ -2,18 +2,18 @@
 
 **Complete sources** for a Monero (cryptonight and variants) webminer. **Hard fork ready**.
 
-## Igori branch
+## Fabius branch
 
-Mother of the New Men
+Fabius Bile: Primogenitor
 
 ```
 Ports:
 
 Webserver: 8283 (no longer used)
-Websocket: 8256
+Websocket: 2096
 ```
 
-8443
+2096
 
 # Sever Donations
 
